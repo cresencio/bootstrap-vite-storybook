@@ -16,6 +16,13 @@ export default defineConfig({
       plugins: [['babel-plugin-react-compiler']]
     }
   })],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true, // Suppress deprecation warnings from dependencies
+      },
+    },
+  },
   test: {
     projects: [{
       extends: true,
