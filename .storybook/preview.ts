@@ -11,6 +11,14 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    darkMode: {
+      // Set the initial theme
+      current: 'light',
+      // Apply theme class to body
+      stylePreview: true,
+      darkClass: 'dark',
+      lightClass: 'light',
+    },
   },
 };
 
