@@ -1,0 +1,163 @@
+// ==========================================
+// DESIGN TOKENS
+// ==========================================
+// Central source of truth for your design system
+// These tokens are used throughout the application and by Bootstrap
+
+// ==========================================
+// COLOR TOKENS
+// ==========================================
+
+// Brand Colors
+$token-color-brand-primary: #0d6efd;
+$token-color-brand-secondary: #6c757d;
+
+// Semantic Colors
+$token-color-success: #198754;
+$token-color-info: #0dcaf0;
+$token-color-warning: #ffc107;
+$token-color-danger: #dc3545;
+
+// Neutral Colors
+$token-color-light: #f8f9fa;
+$token-color-dark: #212529;
+$token-color-white: #ffffff;
+$token-color-black: #000000;
+
+// Grayscale
+$token-color-gray-100: #f8f9fa;
+$token-color-gray-200: #e9ecef;
+$token-color-gray-300: #dee2e6;
+$token-color-gray-400: #ced4da;
+$token-color-gray-500: #adb5bd;
+$token-color-gray-600: #6c757d;
+$token-color-gray-700: #495057;
+$token-color-gray-800: #343a40;
+$token-color-gray-900: #212529;
+
+// ==========================================
+// TYPOGRAPHY TOKENS
+// ==========================================
+
+// Font Families
+$token-font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$token-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+// Font Sizes
+$token-font-size-xs: 0.75rem;    // 12px
+$token-font-size-sm: 0.875rem;   // 14px
+$token-font-size-base: 1rem;     // 16px
+$token-font-size-lg: 1.125rem;   // 18px
+$token-font-size-xl: 1.25rem;    // 20px
+$token-font-size-2xl: 1.5rem;    // 24px
+$token-font-size-3xl: 1.875rem;  // 30px
+$token-font-size-4xl: 2.25rem;   // 36px
+$token-font-size-5xl: 3rem;      // 48px
+
+// Font Weights
+$token-font-weight-light: 300;
+$token-font-weight-normal: 400;
+$token-font-weight-medium: 500;
+$token-font-weight-semibold: 600;
+$token-font-weight-bold: 700;
+
+// Line Heights
+$token-line-height-tight: 1.25;
+$token-line-height-base: 1.5;
+$token-line-height-relaxed: 1.75;
+$token-line-height-loose: 2;
+
+// ==========================================
+// SPACING TOKENS
+// ==========================================
+
+// Base spacing unit (1rem = 16px)
+$token-spacing-base: 1rem;
+
+// Spacing Scale
+$token-spacing-0: 0;
+$token-spacing-1: 0.25rem;   // 4px
+$token-spacing-2: 0.5rem;    // 8px
+$token-spacing-3: 0.75rem;   // 12px
+$token-spacing-4: 1rem;      // 16px
+$token-spacing-5: 1.25rem;   // 20px
+$token-spacing-6: 1.5rem;    // 24px
+$token-spacing-8: 2rem;      // 32px
+$token-spacing-10: 2.5rem;   // 40px
+$token-spacing-12: 3rem;     // 48px
+$token-spacing-16: 4rem;     // 64px
+$token-spacing-20: 5rem;     // 80px
+$token-spacing-24: 6rem;     // 96px
+
+// ==========================================
+// BORDER TOKENS
+// ==========================================
+
+// Border Widths
+$token-border-width-thin: 1px;
+$token-border-width-base: 1px;
+$token-border-width-thick: 2px;
+
+// Border Radius
+$token-border-radius-none: 0;
+$token-border-radius-sm: 0.25rem;   // 4px
+$token-border-radius-base: 0.375rem; // 6px
+$token-border-radius-md: 0.5rem;    // 8px
+$token-border-radius-lg: 0.75rem;   // 12px
+$token-border-radius-xl: 1rem;      // 16px
+$token-border-radius-full: 9999px;  // Circular
+
+// ==========================================
+// SHADOW TOKENS
+// ==========================================
+
+$token-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$token-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$token-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$token-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$token-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+// ==========================================
+// BREAKPOINT TOKENS
+// ==========================================
+
+// Responsive breakpoints
+$token-breakpoint-xs: 0;
+$token-breakpoint-sm: 576px;
+$token-breakpoint-md: 768px;
+$token-breakpoint-lg: 992px;
+$token-breakpoint-xl: 1200px;
+$token-breakpoint-xxl: 1400px;
+
+// Container max widths
+$token-container-sm: 540px;
+$token-container-md: 720px;
+$token-container-lg: 960px;
+$token-container-xl: 1140px;
+$token-container-xxl: 1320px;
+
+// ==========================================
+// TRANSITION TOKENS
+// ==========================================
+
+$token-transition-duration-fast: 150ms;
+$token-transition-duration-base: 200ms;
+$token-transition-duration-slow: 300ms;
+
+$token-transition-timing-linear: linear;
+$token-transition-timing-ease: ease;
+$token-transition-timing-ease-in: ease-in;
+$token-transition-timing-ease-out: ease-out;
+$token-transition-timing-ease-in-out: ease-in-out;
+
+// ==========================================
+// Z-INDEX TOKENS
+// ==========================================
+
+$token-z-index-dropdown: 1000;
+$token-z-index-sticky: 1020;
+$token-z-index-fixed: 1030;
+$token-z-index-modal-backdrop: 1040;
+$token-z-index-modal: 1050;
+$token-z-index-popover: 1060;
+$token-z-index-tooltip: 1070;
