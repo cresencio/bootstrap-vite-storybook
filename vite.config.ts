@@ -20,6 +20,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         quietDeps: true, // Suppress deprecation warnings from dependencies
+        silenceDeprecations: ['import', 'global-builtin'], // Suppress @import deprecation warnings
       },
     },
   },
