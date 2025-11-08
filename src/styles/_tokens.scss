@@ -18,6 +18,14 @@ $token-color-info: #0dcaf0;
 $token-color-warning: #ffc107;
 $token-color-danger: #dc3545;
 
+// Dark Mode - Neon/Electric Colors
+$token-color-neon-primary: #00d4ff;      // Electric cyan
+$token-color-neon-secondary: #b19cd9;    // Electric lavender
+$token-color-neon-success: #00ff88;      // Neon green
+$token-color-neon-info: #00ffff;         // Bright cyan
+$token-color-neon-warning: #ffea00;      // Electric yellow
+$token-color-neon-danger: #ff2a6d;       // Hot pink/magenta
+
 // Neutral Colors
 $token-color-light: #f8f9fa;
 $token-color-dark: #212529;
@@ -56,6 +64,10 @@ $token-color-gray-900: #212529;
   --color-info: #{$token-color-info};
   --color-warning: #{$token-color-warning};
   --color-danger: #{$token-color-danger};
+  
+  // Light/Dark variants for light theme
+  --color-light: #{$token-color-light};
+  --color-dark: #{$token-color-dark};
 }
 
 // Dark theme
@@ -68,6 +80,20 @@ $token-color-gray-900: #212529;
   --color-surface-alt: #{$token-color-gray-700};
   --color-heading: #{$token-color-white};
   --color-muted: #{$token-color-gray-400};
+  
+  // Neon/Electric colors for dark mode
+  --color-primary: #{$token-color-neon-primary};
+  --color-secondary: #{$token-color-neon-secondary};
+  --color-success: #{$token-color-neon-success};
+  --color-info: #{$token-color-neon-info};
+  --color-warning: #{$token-color-neon-warning};
+  --color-danger: #{$token-color-neon-danger};
+  
+  // Light/Dark variants for dark theme
+  // "light" stays as light gray (same as light mode)
+  // "dark" becomes bright white for high contrast
+  --color-light: #{$token-color-light};    // Keep light gray
+  --color-dark: #{$token-color-white};     // Bright white for dark mode
 }
 
 // ==========================================

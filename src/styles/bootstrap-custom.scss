@@ -91,4 +91,104 @@ $container-max-widths: (
     background-color: var(--color-body-bg);
     color: var(--color-body-text);
   }
+  
+  // Apply neon colors to Bootstrap components in dark mode
+  .alert-primary {
+    background-color: rgba(0, 212, 255, 0.15);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+  
+  .alert-secondary {
+    background-color: rgba(177, 156, 217, 0.15);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(177, 156, 217, 0.3);
+  }
+  
+  .alert-success {
+    background-color: rgba(0, 255, 136, 0.15);
+    border-color: var(--color-success);
+    color: var(--color-success);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  }
+  
+  .alert-info {
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: var(--color-info);
+    color: var(--color-info);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  .alert-warning {
+    background-color: rgba(255, 234, 0, 0.15);
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+    box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+  }
+  
+  .alert-danger {
+    background-color: rgba(255, 42, 109, 0.15);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+  }
+  
+  .alert-light {
+    background-color: rgba(248, 249, 250, 0.1);
+    border-color: var(--color-light);
+    color: var(--color-light);
+    box-shadow: 0 0 10px rgba(248, 249, 250, 0.2);
+  }
+  
+  .alert-dark {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-dark);
+    color: var(--color-dark);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+  }
+  
+  // Accordion with neon borders
+  .accordion-button {
+    background-color: var(--color-surface);
+    color: var(--color-body-text);
+    border-color: var(--color-border);
+    
+    &:not(.collapsed) {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
+    }
+  }
+  
+  .accordion-item {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+  }
+  
+  .accordion-body {
+    background-color: var(--color-surface);
+    color: var(--color-body-text);
+  }
+  
+  // Add glow to links
+  a {
+    color: var(--color-primary);
+    
+    &:hover {
+      color: var(--color-info);
+      text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+    }
+  }
+  
+  .alert-link {
+    font-weight: 600;
+    text-shadow: 0 0 5px currentColor;
+  }
 }
