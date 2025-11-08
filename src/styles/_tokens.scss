@@ -5,7 +5,7 @@
 // These tokens are used throughout the application and by Bootstrap
 
 // ==========================================
-// COLOR TOKENS
+// COLOR TOKENS (SCSS Variables)
 // ==========================================
 
 // Brand Colors
@@ -34,6 +34,41 @@ $token-color-gray-600: #6c757d;
 $token-color-gray-700: #495057;
 $token-color-gray-800: #343a40;
 $token-color-gray-900: #212529;
+
+// ==========================================
+// CSS CUSTOM PROPERTIES (Runtime Theming)
+// ==========================================
+
+:root {
+  // Light theme (default)
+  --color-body-bg: #{$token-color-white};
+  --color-body-text: #{$token-color-gray-900};
+  --color-border: #{$token-color-gray-300};
+  --color-surface: #{$token-color-white};
+  --color-surface-alt: #{$token-color-gray-100};
+  --color-heading: #{$token-color-gray-900};
+  --color-muted: #{$token-color-gray-600};
+  
+  // Brand colors (same in both themes)
+  --color-primary: #{$token-color-brand-primary};
+  --color-secondary: #{$token-color-brand-secondary};
+  --color-success: #{$token-color-success};
+  --color-info: #{$token-color-info};
+  --color-warning: #{$token-color-warning};
+  --color-danger: #{$token-color-danger};
+}
+
+// Dark theme
+.dark,
+[data-theme="dark"] {
+  --color-body-bg: #{$token-color-gray-900};
+  --color-body-text: #{$token-color-gray-100};
+  --color-border: #{$token-color-gray-700};
+  --color-surface: #{$token-color-gray-800};
+  --color-surface-alt: #{$token-color-gray-700};
+  --color-heading: #{$token-color-white};
+  --color-muted: #{$token-color-gray-400};
+}
 
 // ==========================================
 // TYPOGRAPHY TOKENS

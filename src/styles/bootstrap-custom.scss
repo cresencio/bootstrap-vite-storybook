@@ -21,6 +21,11 @@ $danger: $token-color-danger;
 $light: $token-color-light;
 $dark: $token-color-dark;
 
+// Body colors (use SCSS variables, theming handled separately)
+$body-bg: $token-color-white;
+$body-color: $token-color-gray-900;
+$border-color: $token-color-gray-300;
+
 // Typography
 $font-family-sans-serif: $token-font-family-base;
 $font-family-monospace: $token-font-family-monospace;
@@ -68,3 +73,22 @@ $container-max-widths: (
 
 // Import all of Bootstrap
 @import "bootstrap/scss/bootstrap";
+
+// ==========================================
+// RUNTIME THEME OVERRIDES
+// ==========================================
+// Apply CSS custom properties for runtime theming
+:root,
+:root.light {
+  body {
+    background-color: var(--color-body-bg);
+    color: var(--color-body-text);
+  }
+}
+
+.dark {
+  body {
+    background-color: var(--color-body-bg);
+    color: var(--color-body-text);
+  }
+}
