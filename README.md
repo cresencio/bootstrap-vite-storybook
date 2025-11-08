@@ -10,7 +10,7 @@ A fully-customizable component library using Bootstrap 5, React, TypeScript, and
 - **Storybook 10** - Component documentation and development environment
 - **Three-Tier Design System** - Global tokens → Bootstrap mapping → Component variables
 - **Runtime Theming** - Light/dark mode switching with CSS custom properties
-- **MDX Documentation** - Self-contained component documentation
+- **Autodocs** - Automatic documentation generation from stories and TypeScript props
 
 ## Project Structure
 
@@ -19,13 +19,11 @@ src/
 ├── components/
 │   ├── Accordion/
 │   │   ├── Accordion.tsx          # Component implementation
-│   │   ├── Accordion.stories.tsx  # Storybook stories
-│   │   ├── Accordion.docs.mdx     # Component documentation
+│   │   ├── Accordion.stories.tsx  # Storybook stories with autodocs
 │   │   └── _variables.scss        # Component-specific SCSS variables
 │   └── Alert/
 │       ├── Alert.tsx
 │       ├── Alert.stories.tsx
-│       ├── Alert.docs.mdx
 │       └── _variables.scss
 └── styles/
     ├── _tokens.scss              # Global design tokens
@@ -37,37 +35,43 @@ src/
 Each component folder is self-contained with:
 
 1. **`.tsx`** - React component with TypeScript interfaces
-2. **`.stories.tsx`** - Storybook stories showcasing variants
-3. **`.docs.mdx`** - MDX documentation with live examples and props table
-4. **`_variables.scss`** - Component-specific SCSS customizations
+2. **`.stories.tsx`** - Storybook stories with `tags: ['autodocs']` for automatic documentation
+3. **`_variables.scss`** - Component-specific SCSS customizations
 
-### MDX Documentation Format
+### Storybook Autodocs
 
-Each `.docs.mdx` file follows this structure:
+Components use Storybook's autodocs feature, which automatically generates comprehensive documentation from:
 
-```mdx
-import { Meta, Canvas, Controls } from '@storybook/blocks';
-import * as ComponentStories from './Component.stories';
+- Component props and TypeScript types
+- JSDoc comments in the component file
+- Story examples and variants
+- Controls for interactive testing
 
-<Meta of={ComponentStories} />
+To enable autodocs, add to your story meta:
 
-# Component Name
-
-Brief description of the component.
-
-## Overview
-
-Detailed explanation of the component's purpose and usage.
-
-## Examples
-
-### Example Name
-
-<Canvas of={ComponentStories.StoryName} />
-
-## Props
-
-<Controls of={ComponentStories.StoryName} />
+```typescript
+const meta: Meta<ComponentProps> = {
+  title: 'Category/ComponentName',
+  component: ComponentName,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Component description here...',
+      },
+    },
+  },
+  argTypes: {
+    propName: {
+      description: 'Prop description',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'default' },
+      },
+    },
+  },
+};
 ```
 
 ## Getting Started
@@ -96,15 +100,28 @@ See [THEMING.md](docs/THEMING.md) for comprehensive theming documentation includ
 - Three-tier design token architecture
 - SCSS variable customization
 - CSS custom properties for runtime theming
-- Light/dark mode implementation
+- Light/dark mode implementation with electric neon colors
+
+### Quick Theme Overview
+
+**Light Mode**: Standard Bootstrap pastel colors
+**Dark Mode**: Electric neon color palette with glowing effects
+
+- Primary: Electric cyan (#00d4ff)
+- Success: Neon green (#00ff88)  
+- Warning: Electric yellow (#ffea00)
+- Danger: Hot pink (#ff2a6d)
+- Info: Bright cyan (#00ffff)
+- Secondary: Electric lavender (#b19cd9)
+
+Toggle themes in Storybook using the toolbar theme switcher.
 
 ## Adding New Components
 
 See [COMPONENT_GUIDE.md](docs/COMPONENT_GUIDE.md) for step-by-step instructions on:
 
 - Creating new components with the standard structure
-- Writing Storybook stories
-- Creating MDX documentation
+- Writing Storybook stories with autodocs
 - Adding component-specific SCSS variables
 - Best practices and testing checklist
 
