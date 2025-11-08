@@ -1,0 +1,64 @@
+// Dropdown Variables
+// Override Bootstrap dropdown variables
+
+// Dropdown sizing
+$dropdown-min-width: 10rem !default;
+$dropdown-padding-x: 0 !default;
+$dropdown-padding-y: 0.5rem !default;
+$dropdown-spacer: 0.125rem !default;
+$dropdown-font-size: $token-font-size-base !default;
+
+// Dropdown colors
+$dropdown-color: $token-color-gray-900 !default;
+$dropdown-bg: $token-color-white !default;
+$dropdown-border-color: rgba($token-color-black, 0.175) !default;
+
+// Dropdown border
+$dropdown-border-radius: $token-border-radius-base !default;
+$dropdown-border-width: 1px !default;
+$dropdown-inner-border-radius: calc(#{$dropdown-border-radius} - #{$dropdown-border-width}) !default;
+
+// Dropdown divider
+$dropdown-divider-bg: $dropdown-border-color !default;
+$dropdown-divider-margin-y: $token-spacing-base * 0.5 !default;
+
+// Dropdown shadow
+$dropdown-box-shadow: 0 0.5rem 1rem rgba($token-color-black, 0.175) !default;
+
+// Dropdown link states
+$dropdown-link-color: $token-color-gray-900 !default;
+$dropdown-link-hover-color: $dropdown-link-color !default;
+$dropdown-link-hover-bg: $token-color-gray-100 !default;
+
+$dropdown-link-active-color: $token-color-white !default;
+$dropdown-link-active-bg: $token-color-brand-primary !default;
+
+$dropdown-link-disabled-color: $token-color-gray-600 !default;
+
+// Dropdown item padding
+$dropdown-item-padding-y: $token-spacing-base * 0.25 !default;
+$dropdown-item-padding-x: $token-spacing-base !default;
+
+// Dropdown header
+$dropdown-header-color: $token-color-gray-600 !default;
+$dropdown-header-padding-x: $dropdown-item-padding-x !default;
+$dropdown-header-padding-y: $dropdown-padding-y !default;
+
+// Dark dropdown
+$dropdown-dark-color: $token-color-gray-300 !default;
+$dropdown-dark-bg: $token-color-gray-800 !default;
+$dropdown-dark-border-color: $dropdown-border-color !default;
+$dropdown-dark-divider-bg: $dropdown-divider-bg !default;
+$dropdown-dark-box-shadow: null !default;
+$dropdown-dark-link-color: $dropdown-dark-color !default;
+$dropdown-dark-link-hover-color: $token-color-white !default;
+$dropdown-dark-link-hover-bg: rgba($token-color-white, 0.15) !default;
+$dropdown-dark-link-active-color: $dropdown-link-active-color !default;
+$dropdown-dark-link-active-bg: $dropdown-link-active-bg !default;
+$dropdown-dark-link-disabled-color: $token-color-gray-500 !default;
+$dropdown-dark-header-color: $token-color-gray-500 !default;
+
+// Caret
+$caret-width: 0.3em !default;
+$caret-vertical-align: $caret-width * 0.85 !default;
+$caret-spacing: $caret-width * 0.85 !default;
