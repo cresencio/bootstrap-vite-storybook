@@ -115,19 +115,18 @@ This project supports dynamic light/dark theme switching using CSS custom proper
    }
    ```
 
-2. **Bootstrap variables** use these CSS variables:
-   ```scss
-   $body-bg: var(--color-body-bg);
-   $body-color: var(--color-body-text);
-   ```
+2. **Important**: Bootstrap SCSS variables cannot use CSS `var()` at compile time. Instead:
+   - Bootstrap variables use static SCSS tokens (`$body-bg: $token-color-white`)
+   - Theme-specific overrides are applied with custom CSS after Bootstrap compiles
+   - Runtime theming is handled by CSS custom properties in body styles
 
-3. **Theme switching** is handled by the `storybook-dark-mode` addon
+3. **Theme switching** is handled by a custom toolbar decorator compatible with Storybook 10
 
 ### Using Theme Toggle in Storybook
 
-- Look for the moon/sun icon in the Storybook toolbar (top right)
-- Click to toggle between light and dark themes
-- Theme preference is saved in localStorage
+- Look for the "Theme" dropdown in the Storybook toolbar (top toolbar)
+- Select "Light" (sun icon) or "Dark" (moon icon) to switch themes
+- Theme preference is applied immediately to all stories
 
 ### Customizing Themes
 
