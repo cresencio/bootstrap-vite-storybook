@@ -1,11 +1,112 @@
-# React + TypeScript + Vite
+# Bootstrap + Vite + Storybook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully-customizable component library using Bootstrap 5, React, TypeScript, and Vite with comprehensive Storybook documentation.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Vite 7.2** - Lightning-fast development with HMR
+- **React 19** - Latest React with TypeScript support
+- **Bootstrap 5.3** - Customizable via SCSS
+- **Storybook 10** - Component documentation and development environment
+- **Three-Tier Design System** - Global tokens → Bootstrap mapping → Component variables
+- **Runtime Theming** - Light/dark mode switching with CSS custom properties
+- **MDX Documentation** - Self-contained component documentation
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Accordion/
+│   │   ├── Accordion.tsx          # Component implementation
+│   │   ├── Accordion.stories.tsx  # Storybook stories
+│   │   ├── Accordion.docs.mdx     # Component documentation
+│   │   └── _variables.scss        # Component-specific SCSS variables
+│   └── Alert/
+│       ├── Alert.tsx
+│       ├── Alert.stories.tsx
+│       ├── Alert.docs.mdx
+│       └── _variables.scss
+└── styles/
+    ├── _tokens.scss              # Global design tokens
+    └── bootstrap-custom.scss     # Bootstrap variable mapping
+```
+
+## Component Structure
+
+Each component folder is self-contained with:
+
+1. **`.tsx`** - React component with TypeScript interfaces
+2. **`.stories.tsx`** - Storybook stories showcasing variants
+3. **`.docs.mdx`** - MDX documentation with live examples and props table
+4. **`_variables.scss`** - Component-specific SCSS customizations
+
+### MDX Documentation Format
+
+Each `.docs.mdx` file follows this structure:
+
+```mdx
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as ComponentStories from './Component.stories';
+
+<Meta of={ComponentStories} />
+
+# Component Name
+
+Brief description of the component.
+
+## Overview
+
+Detailed explanation of the component's purpose and usage.
+
+## Examples
+
+### Example Name
+
+<Canvas of={ComponentStories.StoryName} />
+
+## Props
+
+<Controls of={ComponentStories.StoryName} />
+```
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Start Storybook
+npm run storybook
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Theming
+
+See [THEMING.md](docs/THEMING.md) for comprehensive theming documentation including:
+
+- Three-tier design token architecture
+- SCSS variable customization
+- CSS custom properties for runtime theming
+- Light/dark mode implementation
+
+## Adding New Components
+
+See [COMPONENT_GUIDE.md](docs/COMPONENT_GUIDE.md) for step-by-step instructions on:
+
+- Creating new components with the standard structure
+- Writing Storybook stories
+- Creating MDX documentation
+- Adding component-specific SCSS variables
+- Best practices and testing checklist
 
 ## React Compiler
 
