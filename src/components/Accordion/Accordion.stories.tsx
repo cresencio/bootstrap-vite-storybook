@@ -5,19 +5,73 @@ import type { AccordionProps } from './Accordion';
 const meta: Meta<AccordionProps> = {
   title: 'Bootstrap/Accordion',
   component: Accordion,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Bootstrap accordions allow you to vertically collapse and expand content sections. The accordion uses the Bootstrap collapse JavaScript plugin to show and hide content. Perfect for FAQs, navigation menus, and more.',
+      },
+    },
+  },
   argTypes: {
+    items: {
+      description: 'Array of accordion items with title and content',
+      table: {
+        type: { summary: 'AccordionItem[]' },
+      },
+    },
+    id: {
+      control: 'text',
+      description: 'Root id for the accordion, used for aria and data-bs-parent',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'accordionExample' },
+      },
+    },
     flush: {
       control: 'boolean',
       description: 'Remove borders and border-radius for edge-to-edge rendering',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
     defaultOpen: {
       control: 'number',
       description: 'Index of the item that should be open by default (0-based, -1 for none)',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+      },
     },
-    onHide: { action: 'hide.bs.collapse' },
-    onHidden: { action: 'hidden.bs.collapse' },
-    onShow: { action: 'show.bs.collapse' },
-    onShown: { action: 'shown.bs.collapse' },
+    onHide: { 
+      action: 'hide.bs.collapse',
+      description: 'Callback fired immediately when the hide method has been called',
+      table: {
+        type: { summary: '(event: Event) => void' },
+      },
+    },
+    onHidden: { 
+      action: 'hidden.bs.collapse',
+      description: 'Callback fired when a collapse element has been hidden from the user',
+      table: {
+        type: { summary: '(event: Event) => void' },
+      },
+    },
+    onShow: { 
+      action: 'show.bs.collapse',
+      description: 'Callback fired immediately when the show instance method is called',
+      table: {
+        type: { summary: '(event: Event) => void' },
+      },
+    },
+    onShown: { 
+      action: 'shown.bs.collapse',
+      description: 'Callback fired when a collapse element has been made visible to the user',
+      table: {
+        type: { summary: '(event: Event) => void' },
+      },
+    },
   },
 };
 

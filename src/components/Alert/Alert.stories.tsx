@@ -5,15 +5,47 @@ import type { AlertProps } from './Alert';
 const meta: Meta<AlertProps> = {
   title: 'Bootstrap/Alert',
   component: Alert,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Bootstrap alerts provide contextual feedback messages for typical user actions. Alerts are available for any length of text, as well as an optional dismiss button. They can be styled with one of the eight contextual variants.',
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',
       options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      description: 'The alert variant/color theme',
+      table: {
+        type: { summary: 'AlertVariant' },
+        defaultValue: { summary: 'primary' },
+      },
     },
     dismissible: {
       control: 'boolean',
+      description: 'Show dismiss button',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
     },
-    onDismiss: { action: 'dismissed' },
+    onDismiss: { 
+      action: 'dismissed',
+      description: 'Callback when alert is dismissed',
+      table: {
+        type: { summary: '() => void' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '""' },
+      },
+    },
   },
 };
 
