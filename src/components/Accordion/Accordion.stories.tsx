@@ -7,6 +7,14 @@ const meta: Meta<AccordionProps> = {
   component: Accordion,
   tags: ['autodocs'],
   argTypes: {
+    flush: {
+      control: 'boolean',
+      description: 'Remove borders and border-radius for edge-to-edge rendering',
+    },
+    defaultOpen: {
+      control: 'number',
+      description: 'Index of the item that should be open by default (0-based, -1 for none)',
+    },
     onHide: { action: 'hide.bs.collapse' },
     onHidden: { action: 'hidden.bs.collapse' },
     onShow: { action: 'show.bs.collapse' },
