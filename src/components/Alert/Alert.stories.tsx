@@ -5,7 +5,6 @@ import type { AlertProps } from './Alert';
 const meta: Meta<AlertProps> = {
   title: 'Bootstrap/Alert',
   component: Alert,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: 'select',
