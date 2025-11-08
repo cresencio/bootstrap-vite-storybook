@@ -6,6 +6,12 @@ const meta: Meta<AccordionProps> = {
   title: 'Bootstrap/Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  argTypes: {
+    onHide: { action: 'hide.bs.collapse' },
+    onHidden: { action: 'hidden.bs.collapse' },
+    onShow: { action: 'show.bs.collapse' },
+    onShown: { action: 'shown.bs.collapse' },
+  },
 };
 
 export default meta;
