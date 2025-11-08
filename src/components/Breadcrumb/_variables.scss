@@ -1,0 +1,27 @@
+// Breadcrumb Variables
+// Override Bootstrap breadcrumb variables
+
+// Breadcrumb font size
+$breadcrumb-font-size: null !default;
+
+// Breadcrumb padding
+$breadcrumb-padding-y: 0 !default;
+$breadcrumb-padding-x: 0 !default;
+
+// Breadcrumb item padding
+$breadcrumb-item-padding-x: 0.5rem !default;
+
+// Breadcrumb margin
+$breadcrumb-margin-bottom: 1rem !default;
+
+// Breadcrumb background
+$breadcrumb-bg: null !default;
+
+// Breadcrumb divider
+$breadcrumb-divider-color: $token-color-gray-600 !default;
+$breadcrumb-active-color: $token-color-gray-600 !default;
+$breadcrumb-divider: quote("/") !default;
+$breadcrumb-divider-flipped: $breadcrumb-divider !default;
+
+// Breadcrumb border radius
+$breadcrumb-border-radius: null !default;
