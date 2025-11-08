@@ -1,0 +1,19 @@
+// Badge Variables
+// Override Bootstrap or define custom variables for this component
+
+// Badge colors inherit from theme colors, but you can customize spacing and sizing here
+
+// Badge padding (using em units like Bootstrap for scalability)
+$badge-padding-y: 0.35em !default;
+$badge-padding-x: 0.65em !default;
+
+// Badge font sizing (relative to parent)
+$badge-font-size: 0.75em !default;
+$badge-font-weight: $token-font-weight-bold !default;
+
+// Badge color
+$badge-color: $token-color-white !default;
+
+// Badge border radius
+$badge-border-radius: $token-border-radius-sm !default;
+$badge-pill-border-radius: 10rem !default;
