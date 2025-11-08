@@ -5,7 +5,6 @@ import type { AccordionProps } from './Accordion';
 const meta: Meta<AccordionProps> = {
   title: 'Bootstrap/Accordion',
   component: Accordion,
-  tags: ['autodocs'],
   argTypes: {
     flush: {
       control: 'boolean',

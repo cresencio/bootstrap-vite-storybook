@@ -1,0 +1,28 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as AccordionStories from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Bootstrap accordions allow you to vertically collapse and expand content sections. Perfect for FAQs, navigation menus, and more.
+
+## Overview
+
+The accordion uses the Bootstrap collapse JavaScript plugin to show and hide content. Each accordion item contains a header button that controls the visibility of its associated content panel.
+
+## Examples
+
+### Default Accordion
+
+<Canvas of={AccordionStories.Default} />
+
+### Flush Accordion
+
+Remove borders and rounded corners to render accordions edge-to-edge with their parent container.
+
+<Canvas of={AccordionStories.Flush} />
+
+## Props
+
+<Controls of={AccordionStories.Default} />
