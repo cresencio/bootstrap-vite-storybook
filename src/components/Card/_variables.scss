@@ -1,0 +1,29 @@
+// Card Variables
+// Override Bootstrap card variables
+
+// Card spacing
+$card-spacer-y: $token-spacing-base !default;
+$card-spacer-x: $token-spacing-base !default;
+$card-title-spacer-y: $token-spacing-base * 0.5 !default;
+$card-title-color: null !default;
+$card-subtitle-color: null !default;
+
+// Card border
+$card-border-width: 1px !default;
+$card-border-color: rgba($token-color-black, 0.125) !default;
+$card-border-radius: $token-border-radius-base !default;
+
+// Card background and colors
+$card-box-shadow: null !default;
+$card-inner-border-radius: calc(#{$card-border-radius} - #{$card-border-width}) !default;
+$card-cap-padding-y: $card-spacer-y * 0.5 !default;
+$card-cap-padding-x: $card-spacer-x !default;
+$card-cap-bg: rgba($token-color-black, 0.03) !default;
+$card-cap-color: null !default;
+$card-height: null !default;
+$card-color: null !default;
+$card-bg: $token-color-white !default;
+$card-img-overlay-padding: $token-spacing-base !default;
+
+// Card group
+$card-group-margin: $token-spacing-base * 0.75 !default;
