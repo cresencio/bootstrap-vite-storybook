@@ -9,20 +9,22 @@ $card-title-color: null !default;
 $card-subtitle-color: null !default;
 
 // Card border
-$card-border-width: 1px !default;
-$card-border-color: rgba($token-color-black, 0.125) !default;
+$card-border-width: $token-border-width-base !default;
 $card-border-radius: $token-border-radius-base !default;
 
 // Card background and colors
+// Note: border-color, bg, and color are left as null to use Bootstrap's default
+// theme-aware values that automatically adapt to light/dark mode
+$card-border-color: null !default;
 $card-box-shadow: null !default;
 $card-inner-border-radius: calc(#{$card-border-radius} - #{$card-border-width}) !default;
 $card-cap-padding-y: $card-spacer-y * 0.5 !default;
 $card-cap-padding-x: $card-spacer-x !default;
-$card-cap-bg: rgba($token-color-black, 0.03) !default;
+$card-cap-bg: null !default;
 $card-cap-color: null !default;
 $card-height: null !default;
 $card-color: null !default;
-$card-bg: $token-color-white !default;
+$card-bg: null !default;
 $card-img-overlay-padding: $token-spacing-base !default;
 
 // Card group
