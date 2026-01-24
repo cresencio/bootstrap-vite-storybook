@@ -64,16 +64,17 @@ $container-max-widths: (
 // COMPONENT VARIABLES
 // ==========================================
 // Import component-specific variable overrides
-@import '../components/Accordion/variables';
-@import '../components/Alert/variables';
-@import '../components/Badge/variables';
-@import '../components/Breadcrumb/variables';
-@import '../components/Button/variables';
-@import '../components/ButtonGroup/variables';
-@import '../components/Card/variables';
-@import '../components/Collapse/variables';
-@import '../components/Dropdown/variables';
-@import '../components/Nav/variables';
+@import '../bootstrap/Accordion/variables';
+@import '../bootstrap/Alert/variables';
+@import '../bootstrap/Badge/variables';
+@import '../bootstrap/Breadcrumb/variables';
+@import '../bootstrap/Button/variables';
+@import '../bootstrap/ButtonGroup/variables';
+@import '../bootstrap/Card/variables';
+@import '../bootstrap/Collapse/variables';
+@import '../bootstrap/Dropdown/variables';
+@import '../bootstrap/Nav/variables';
+@import '../bootstrap/Navbar/variables';
 
 // ==========================================
 // IMPORT BOOTSTRAP

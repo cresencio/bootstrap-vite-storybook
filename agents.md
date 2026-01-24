@@ -110,14 +110,16 @@ Dark mode styling is applied via `.dark` class and `[data-theme="dark"]` attribu
 
 ### Component Structure
 
-Each component follows a strict pattern:
+Bootstrap components follow a strict pattern under `src/bootstrap/`:
 
 ```
-src/components/ComponentName/
+src/bootstrap/ComponentName/
 ├── ComponentName.tsx           # React component with TypeScript interfaces
 ├── ComponentName.stories.tsx   # Storybook stories with autodocs
 └── _variables.scss             # Component-specific SCSS variables
 ```
+
+Custom/extended components go in `src/components/` for grouping custom functionality.
 
 **Component Requirements**:
 - Export TypeScript interfaces for props (e.g., `AccordionProps`)
