@@ -1,6 +1,47 @@
-# CLAUDE.md
+# AI Agent Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI agents working with code in this repository.
+
+---
+
+## 🔄 Context eXchange System (CXS)
+
+**If you're joining mid-project or resuming after a break**, use CXS to get up to speed quickly.
+
+### Why CXS Exists
+AI agents lose context between sessions. CXS solves this by providing:
+- **Cycle tracking** - Know what work session you're in
+- **Audit ledger** - See what was done previously
+- **Handoff notes** - Structured context for seamless transitions
+- **Context packs** - Reproducible bundles of work
+
+### Quick CXS Onboarding (Do This First!)
+
+1. **Check current cycle**: `cat cxs/cycles/current`
+2. **Review recent activity**: `cat cxs/ledger/runs.csv` (last 5 entries)
+3. **Check outbox**: `ls cxs/outbox/` for recent deliverables
+4. **Use handoff prompt**: Read `cxs/prompts/handoff_status.md` for structured status check
+
+### When Completing Work
+
+1. **Log your session**: Append to `cxs/ledger/runs.csv`
+2. **Document deliverables**: Place outputs in `cxs/outbox/`
+3. **Create handoff note**: Use `cxs/prompts/handoff_note.md` template
+4. **Update changelog**: For significant events, append to `cxs/ledger/CHANGELOG_TIMELINE.md`
+
+### CXS Directory Reference
+
+| Path | Purpose |
+|------|---------|
+| `cxs/cycles/current` | Active cycle ID |
+| `cxs/ledger/runs.csv` | Execution log |
+| `cxs/outbox/` | Output artifacts |
+| `cxs/prompts/` | Templates (read just-in-time) |
+| `cxs/packs/` | Context bundles |
+
+**Full CXS docs**: `cxs/QUICKSTART.md` (~400 tokens) or `cxs/agents.md` (~1000 tokens)
+
+---
 
 ## Project Overview
 
