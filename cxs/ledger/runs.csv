@@ -1,3 +1,4 @@
 timestamp,session_id,cycle_id,contract_ref,agent_id,tokens_or_runtime,status,notes
 2026-01-24T13:24:47Z,session-001,bootstrap-components-20260124,process.contract,copilot,0min,in-progress,Resuming component development after 3-month break. 8 components completed. TODO: Navbar form dropdown ButtonGroup-flush-fix
 2026-01-24T14:16:43Z,session-001,bootstrap-components-20260124,process.contract,copilot,15min,completed,Nav component: TSX with variants(tabs/pills/underline) alignment layout fill dropdowns + stories + SCSS vars
+2026-01-24T14:23:58Z,session-001,bootstrap-components-20260124,process.contract,copilot,10min,completed,Collapse component: TSX with show/horizontal props + CollapseToggle helper + events + stories
