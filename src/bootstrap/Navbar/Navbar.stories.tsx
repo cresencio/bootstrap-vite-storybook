@@ -11,7 +11,7 @@ import {
 } from './Navbar';
 
 const meta: Meta<typeof Navbar> = {
-  title: 'Components/Navbar',
+  title: 'Bootstrap/Navbar',
   component: Navbar,
   tags: ['autodocs'],
   parameters: {
