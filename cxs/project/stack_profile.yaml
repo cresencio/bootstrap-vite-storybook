@@ -1,0 +1,140 @@
+# Technology Stack Profile
+
+# Programming languages and versions
+languages:
+  primary: "language-name"     # e.g., javascript, python, java
+  version: "version-number"    # e.g., 3.9, 18, 11
+  secondary:
+    - name: "secondary-lang-1"
+      version: "version"
+      usage: "testing"         # testing, scripting, configuration
+    - name: "secondary-lang-2"
+      version: "version"
+      usage: "infrastructure"
+
+# Application framework and runtime
+framework:
+  name: "framework-name"       # e.g., express, django, spring
+  version: "version-number"
+  type: "web"                  # web, desktop, mobile, cli, service
+  
+runtime:
+  name: "runtime-name"         # e.g., node, python, jvm
+  version: "version-number"
+  platform: "platform-name"   # linux, windows, macos, container
+
+# Database and data storage
+databases:
+  primary:
+    type: "database-type"      # relational, document, graph, cache
+    name: "database-name"      # postgresql, mongodb, redis
+    version: "version-number"
+  secondary:
+    - type: "database-type"
+      name: "database-name"
+      version: "version"
+      purpose: "caching"       # caching, analytics, logging
+
+# Web technologies (if applicable)
+web_stack:
+  frontend:
+    framework: "frontend-framework"  # react, vue, angular, vanilla
+    version: "version-number"
+    bundler: "bundler-name"          # webpack, vite, parcel
+  backend:
+    framework: "backend-framework"
+    version: "version-number"
+    server: "server-name"            # nginx, apache, iis
+
+# Infrastructure and deployment
+infrastructure:
+  containerization:
+    technology: "container-tech"     # docker, podman, none
+    orchestration: "orchestrator"    # kubernetes, docker-compose, none
+  cloud_platform: "cloud-provider"  # aws, azure, gcp, on-premise
+  deployment_method: "method"        # ci/cd, manual, automated
+
+# Development tools and build system
+build_system:
+  tool: "build-tool"          # npm, pip, maven, gradle, make
+  config_file: "config-file"  # package.json, requirements.txt, pom.xml
+  
+testing_framework:
+  unit: "unit-test-framework"      # jest, pytest, junit
+  integration: "integration-framework"
+  e2e: "e2e-framework"             # cypress, selenium, playwright
+
+# Package management and dependencies
+package_management:
+  manager: "package-manager"       # npm, pip, maven, cargo
+  lock_file: "lock-file-name"      # package-lock.json, poetry.lock
+  registry: "package-registry"     # npmjs, pypi, maven-central
+
+# Development environment requirements
+development:
+  editor_support:
+    - "editor-1"                   # vscode, intellij, vim
+    - "editor-2"
+  required_tools:
+    - name: "tool-name"
+      version: "min-version"
+      purpose: "tool-purpose"
+  environment_variables:
+    - name: "ENV_VAR_NAME"
+      required: true
+      description: "variable purpose"
+
+# Performance and scalability characteristics
+performance:
+  architecture_style: "style"      # monolith, microservices, serverless
+  scaling_method: "method"         # horizontal, vertical, auto
+  caching_strategy: "strategy"     # memory, redis, cdn
+  
+# Security and compliance
+security:
+  authentication: "auth-method"    # jwt, oauth, session
+  authorization: "authz-method"    # rbac, abac, acl
+  encryption: "encryption-type"    # tls, aes, rsa
+  vulnerability_scanning: true
+
+# Monitoring and observability
+observability:
+  logging:
+    framework: "logging-framework"
+    destination: "log-destination"
+  metrics:
+    collection: "metrics-system"
+    visualization: "dashboard-tool"
+  tracing:
+    enabled: false
+    framework: "tracing-framework"
+
+# Configuration management
+configuration:
+  method: "config-method"          # environment, files, external
+  format: "config-format"          # json, yaml, properties
+  secrets_management: "secrets-tool"
+
+# Version compatibility matrix
+compatibility:
+  minimum_versions:
+    language: "min-version"
+    framework: "min-version"
+    database: "min-version"
+  tested_versions:
+    - component: "component-name"
+      version: "tested-version"
+      status: "supported"          # supported, deprecated, unsupported
+
+# Migration and upgrade paths
+migration:
+  current_version: "current"
+  target_version: "target"
+  migration_complexity: "medium"   # low, medium, high
+  breaking_changes: false
+
+# Stack-specific notes
+notes: |
+  Additional information about technology choices, constraints,
+  or special considerations for this technology stack.
+  Include rationale for major technology decisions.

@@ -1,0 +1,176 @@
+# Sample Cycle Pack Metadata
+
+# Pack identification
+pack_info:
+  cycle_id: "sample-cycle"
+  pack_name: "_sample_cycle"
+  created_date: "2025-10-04"
+  pack_version: "1.0.0"
+  description: "Sample cycle pack demonstrating CXS structure and metadata"
+
+# Temporal boundaries
+as_of_boundary:
+  timestamp: "2025-10-04T12:00:00Z"
+  description: "Snapshot boundary for this cycle pack"
+  timezone: "UTC"
+
+# Content manifest (example file list with placeholder hashes)
+file_manifest:
+  - path: "inputs/sample_data.json"
+    hash: "sha256:abcd1234567890abcdef..."
+    size_bytes: 1024
+    description: "Sample input data file"
+    type: "input_data"
+  
+  - path: "configs/processing_config.yaml"
+    hash: "sha256:efgh5678901234567890..."
+    size_bytes: 512
+    description: "Processing configuration parameters"
+    type: "configuration"
+  
+  - path: "contracts/applied_contract.md"
+    hash: "sha256:ijkl9012345678901234..."
+    size_bytes: 2048
+    description: "Contract specification applied to this cycle"
+    type: "contract_reference"
+
+# Applicable contracts for this cycle
+applicable_contracts:
+  - contract_name: "process.contract"
+    version: "1.0.0"
+    purpose: "Primary processing workflow"
+    
+  - contract_name: "analyze.contract"
+    version: "1.0.0"
+    purpose: "Data analysis and insights generation"
+    
+  - contract_name: "document.contract"
+    version: "1.0.0"
+    purpose: "Documentation generation"
+
+# Dependencies and requirements
+dependencies:
+  external_services:
+    - name: "example-service"
+      version: "2.1.0"
+      type: "api"
+      critical: true
+      
+  data_sources:
+    - name: "example-database"
+      type: "database"
+      access_method: "readonly"
+      
+  software_requirements:
+    - name: "processing-engine"
+      version: ">=3.0.0"
+      type: "runtime"
+
+# Execution parameters
+execution_config:
+  timeout_minutes: 30
+  retry_attempts: 3
+  resource_limits:
+    memory_mb: 2048
+    cpu_cores: 2
+  
+  environment_variables:
+    - name: "CYCLE_ID"
+      value: "sample-cycle"
+    - name: "LOG_LEVEL"
+      value: "INFO"
+
+# Quality gates and validation
+quality_gates:
+  input_validation:
+    - "All required input files present"
+    - "Input data format validation passes"
+    - "Data schema compliance verified"
+    
+  process_validation:
+    - "All processing steps complete successfully"
+    - "No critical errors in execution logs"
+    - "Output data quality checks pass"
+    
+  output_validation:
+    - "All expected outputs generated"
+    - "Output format compliance verified"
+    - "Business rule validation passes"
+
+# Provenance and lineage
+provenance:
+  data_lineage:
+    - source: "external-system-1"
+      transformation: "data-cleaning"
+      timestamp: "2025-10-04T10:00:00Z"
+    - source: "previous-cycle-output"
+      transformation: "aggregation"
+      timestamp: "2025-10-04T11:00:00Z"
+      
+  processing_history:
+    - step: "validation"
+      status: "completed"
+      duration_seconds: 45
+    - step: "transformation"
+      status: "completed"  
+      duration_seconds: 120
+    - step: "analysis"
+      status: "completed"
+      duration_seconds: 300
+
+# Expected outputs (what this pack should produce)
+expected_outputs:
+  - name: "processed_data.json"
+    type: "data_artifact"
+    format: "JSON"
+    description: "Primary processed data output"
+    
+  - name: "analysis_report.md"
+    type: "documentation"
+    format: "Markdown"
+    description: "Analysis findings and insights"
+    
+  - name: "execution_summary.yaml"
+    type: "metadata"
+    format: "YAML"
+    description: "Execution summary and metrics"
+
+# Risk assessment and mitigation
+risks:
+  - risk: "Data source unavailability"
+    probability: "low"
+    impact: "high"
+    mitigation: "Fallback to cached data"
+    
+  - risk: "Processing timeout"
+    probability: "medium"
+    impact: "medium"
+    mitigation: "Increase timeout and add checkpointing"
+
+# Notes and additional context
+notes: |
+  This is a sample cycle pack demonstrating the metadata structure
+  for Context eXchange System cycle packs. It contains placeholder
+  data and generic examples that should be customized for actual
+  use cases.
+  
+  Key principles demonstrated:
+  - Complete metadata documentation
+  - Neutral, domain-agnostic language
+  - Clear dependency specification
+  - Comprehensive quality gates
+  - Detailed provenance tracking
+
+# Pack validation
+validation:
+  structure_valid: true
+  metadata_complete: true
+  dependencies_resolved: false  # placeholder dependencies not real
+  contracts_available: true
+  
+# Archive information (when pack is archived)
+archive_info:
+  archived: false
+  archive_date: null
+  archive_location: null
+  retention_period: "3 years"

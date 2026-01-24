@@ -1,0 +1,69 @@
+# Analyze Contract Template
+
+**Purpose**: Define a standardized interface for analysis tasks within the Context eXchange System.
+
+## Contract Metadata
+
+- **Name**: analyze
+- **Version**: 1.0.0
+- **Type**: Analysis Execution
+- **Created**: 2025-10-04
+- **Status**: Active Template
+
+## Description
+
+This contract defines the expectations and interface for performing analysis on input data to extract insights, patterns, or structured information according to specified requirements.
+
+## Inputs
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| analysis_target | path/reference | Yes | Data or artifact to be analyzed |
+| analysis_type | string | Yes | Type of analysis to perform |
+| analysis_config | path | Yes | Configuration and parameters |
+| output_format | string | No | Desired output format specification |
+
+## Outputs
+
+| Artifact | Type | Location | Description |
+|----------|------|----------|-------------|
+| analysis_results | artifact | outbox/ | Primary analysis findings |
+| insights_report | markdown | outbox/ | Human-readable insights summary |
+| raw_output | json/csv | outbox/ | Machine-readable analysis data |
+| confidence_metrics | json | outbox/ | Confidence and quality indicators |
+
+## Validation Gates
+
+1. **Input Validation**: Analysis target is accessible and properly formatted
+2. **Analysis Validation**: Analysis completes with meaningful results
+3. **Output Validation**: Results are in expected format and structure
+4. **Quality Validation**: Confidence metrics meet minimum thresholds
+
+## Provenance
+
+- **Data Sources**: Document all analyzed data sources and versions
+- **Analysis Method**: Record analysis methodology and version
+- **Parameter Set**: Capture all configuration parameters used
+- **Result Lineage**: Track derivation of insights from source data
+
+## Success Criteria
+
+- Analysis target successfully processed
+- Analysis completes within specified time limits
+- Results generated in requested format
+- Confidence metrics indicate reliable findings
+- Insights are actionable and well-documented
+
+## Error Handling
+
+- Invalid analysis target → Log error, terminate with descriptive message
+- Analysis method failure → Log error, attempt alternative approaches
+- Insufficient data quality → Log warning, proceed with qualified results
+- Timeout exceeded → Save partial analysis, log incomplete status
+
+## Notes
+
+- This is a generic analysis contract template
+- Customize analysis types and validation criteria for specific domains
+- Consider data privacy and security requirements
+- Version contracts when analysis methodologies change

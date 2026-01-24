@@ -1,0 +1,83 @@
+# Project Manifest
+
+# Basic project identification and metadata
+name: "example-project"
+version: "1.0.0"
+description: "Brief description of what this project does"
+
+# Project lifecycle information
+created_date: "YYYY-MM-DD"
+last_updated: "YYYY-MM-DD"
+status: "active"  # active, maintenance, deprecated, archived
+
+# Team and ownership
+owner: "team-name or person-name"
+maintainers:
+  - "maintainer-1"
+  - "maintainer-2"
+primary_contact: "contact-email@domain.com"
+
+# Project classification
+domain: "business-domain"  # e.g., finance, healthcare, ecommerce
+type: "project-type"       # e.g., service, library, application, platform
+criticality: "medium"     # low, medium, high, critical
+
+# Technical metadata
+stack_profile_ref: "stack_profile.yaml"
+structure_map_ref: "structure_map.yaml"
+dependencies_ref: "dependencies.yaml"
+
+# CXS integration
+cxs_enabled: true
+active_cycle: "sample-cycle"
+default_contracts:
+  - "process.contract"
+  - "analyze.contract"
+  - "document.contract"
+
+# Documentation links
+repository: "https://github.com/org/repo"
+documentation: "https://docs.example.com"
+wiki: "https://wiki.example.com/project"
+
+# Change management
+changelog: "CHANGELOG.md"
+versioning_scheme: "semantic"  # semantic, date-based, custom
+release_schedule: "monthly"    # weekly, monthly, quarterly, ad-hoc
+
+# Compliance and governance
+security_classification: "internal"  # public, internal, confidential, restricted
+data_classification: "medium"        # low, medium, high
+regulatory_requirements:
+  - "requirement-1"
+  - "requirement-2"
+
+# Integration points
+external_dependencies:
+  - name: "external-service-1"
+    type: "api"
+    criticality: "high"
+  - name: "external-service-2" 
+    type: "database"
+    criticality: "medium"
+
+# Operational information
+deployment_environments:
+  - "development"
+  - "staging" 
+  - "production"
+monitoring_enabled: true
+backup_strategy: "automated"
+
+# Notes and comments
+notes: |
+  Additional context about the project that doesn't fit in other fields.
+  Include any special considerations, historical context, or important
+  decisions that affect the project.
+
+# CXS-specific metadata
+cxs_metadata:
+  discovery_completed: false
+  last_audit_date: null
+  compliance_status: "pending"
+  automation_level: "manual"  # manual, semi-automated, automated

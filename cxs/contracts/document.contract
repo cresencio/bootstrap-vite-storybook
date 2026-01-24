@@ -1,0 +1,69 @@
+# Document Contract Template
+
+**Purpose**: Define a standardized interface for documentation generation tasks within the Context eXchange System.
+
+## Contract Metadata
+
+- **Name**: document
+- **Version**: 1.0.0
+- **Type**: Documentation Generation
+- **Created**: 2025-10-04
+- **Status**: Active Template
+
+## Description
+
+This contract defines the expectations and interface for generating documentation from source materials, code, or analysis results in various formats and styles.
+
+## Inputs
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| source_material | path/reference | Yes | Content to be documented |
+| doc_type | string | Yes | Type of documentation (API, user guide, technical) |
+| template_spec | path | No | Documentation template or style guide |
+| output_format | string | Yes | Target format (markdown, html, pdf) |
+
+## Outputs
+
+| Artifact | Type | Location | Description |
+|----------|------|----------|-------------|
+| documentation | document | outbox/ | Primary documentation output |
+| source_map | json | outbox/ | Mapping of content to source materials |
+| generation_log | text | outbox/ | Documentation generation process log |
+| quality_report | markdown | outbox/ | Documentation quality assessment |
+
+## Validation Gates
+
+1. **Source Validation**: Source material is accessible and parseable
+2. **Content Validation**: Generated content is complete and accurate
+3. **Format Validation**: Output conforms to specified format standards
+4. **Quality Validation**: Documentation meets readability and completeness criteria
+
+## Provenance
+
+- **Source Materials**: Document all input sources and their versions
+- **Generation Method**: Record documentation generation approach
+- **Template Version**: Track template or style guide versions used
+- **Content Lineage**: Map generated content back to source elements
+
+## Success Criteria
+
+- All source material successfully processed
+- Documentation generated in specified format
+- Content is accurate and comprehensive
+- Quality metrics indicate acceptable readability
+- Output validates against format specifications
+
+## Error Handling
+
+- Inaccessible source material → Log error, skip unavailable sections
+- Format conversion failure → Log error, attempt alternative formats
+- Template processing error → Log warning, use default formatting
+- Quality threshold not met → Log warning, flag for human review
+
+## Notes
+
+- This is a generic documentation contract template
+- Customize content types and quality criteria for specific documentation needs
+- Consider accessibility and internationalization requirements
+- Version contracts when documentation standards change

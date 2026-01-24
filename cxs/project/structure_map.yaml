@@ -1,0 +1,210 @@
+# Project Structure Map
+
+# Root directory structure
+root:
+  path: "/"
+  type: "directory"
+  description: "Project root directory"
+  children:
+    - name: "src"
+      type: "directory"
+      description: "Source code directory"
+      importance: "high"
+    - name: "docs"
+      type: "directory" 
+      description: "Documentation files"
+      importance: "medium"
+    - name: "config"
+      type: "directory"
+      description: "Configuration files"
+      importance: "medium"
+
+# Source code organization
+source_structure:
+  base_path: "src/"
+  organization_pattern: "feature"  # feature, layer, domain, functional
+  components:
+    - name: "main"
+      path: "src/main/"
+      type: "entry_point"
+      description: "Application entry point"
+      files:
+        - "index.js"
+        - "app.js"
+    - name: "modules"
+      path: "src/modules/"
+      type: "feature_modules"
+      description: "Feature-specific modules"
+      subcomponents:
+        - "module-1/"
+        - "module-2/"
+    - name: "shared"
+      path: "src/shared/"
+      type: "shared_utilities"
+      description: "Shared utilities and common code"
+
+# Configuration structure  
+configuration:
+  base_path: "config/"
+  files:
+    - name: "app.config.js"
+      type: "application"
+      description: "Main application configuration"
+      environment_specific: true
+    - name: "database.config.js"
+      type: "database"
+      description: "Database connection configuration"
+      sensitive: true
+  environment_configs:
+    - "development.env"
+    - "staging.env"
+    - "production.env"
+
+# Documentation structure
+documentation:
+  base_path: "docs/"
+  organization:
+    - name: "user"
+      path: "docs/user/"
+      description: "User-facing documentation"
+    - name: "developer"
+      path: "docs/developer/"
+      description: "Developer documentation"
+    - name: "api"
+      path: "docs/api/"
+      description: "API documentation"
+  key_files:
+    - "README.md"
+    - "CONTRIBUTING.md"
+    - "CHANGELOG.md"
+
+# Test structure
+testing:
+  base_path: "tests/"
+  organization:
+    - name: "unit"
+      path: "tests/unit/"
+      description: "Unit tests"
+    - name: "integration"
+      path: "tests/integration/"
+      description: "Integration tests"
+    - name: "e2e"
+      path: "tests/e2e/"
+      description: "End-to-end tests"
+  naming_convention: "*.test.js"
+  coverage_reports: "coverage/"
+
+# Build and deployment artifacts
+build:
+  source_paths:
+    - "src/"
+  output_path: "dist/"
+  intermediate_paths:
+    - "build/"
+    - "tmp/"
+  artifacts:
+    - name: "application"
+      path: "dist/app.js"
+      type: "executable"
+    - name: "assets"
+      path: "dist/assets/"
+      type: "static_files"
+
+# Dependencies and external references
+dependencies:
+  package_files:
+    - "package.json"
+    - "package-lock.json"
+  vendor_directories:
+    - "node_modules/"
+    - "vendor/"
+  lock_files:
+    - "package-lock.json"
+
+# Development tooling structure
+development:
+  scripts_path: "scripts/"
+  tooling_configs:
+    - ".eslintrc.js"
+    - ".prettierrc"
+    - "jest.config.js"
+  editor_configs:
+    - ".vscode/"
+    - ".editorconfig"
+
+# Infrastructure as code
+infrastructure:
+  path: "infrastructure/"
+  files:
+    - name: "docker-compose.yml"
+      type: "container_orchestration"
+    - name: "Dockerfile"
+      type: "container_definition"
+    - name: "k8s/"
+      type: "kubernetes_manifests"
+
+# Data and resources
+data:
+  static_data: "data/"
+  resource_files: "resources/"
+  migration_scripts: "migrations/"
+  seed_data: "seeds/"
+
+# Security and compliance files
+security:
+  files:
+    - ".gitignore"
+    - "SECURITY.md"
+    - "LICENSE"
+  sensitive_paths:
+    - "config/*.env"
+    - "secrets/"
+
+# Naming conventions
+naming_conventions:
+  files:
+    format: "kebab-case"        # kebab-case, camelCase, snake_case
+    extensions:
+      source: ".js"
+      config: ".json"
+      documentation: ".md"
+  directories:
+    format: "kebab-case"
+    depth_limit: 4
+
+# Path patterns and rules
+path_patterns:
+  ignore_patterns:
+    - "node_modules/"
+    - ".git/"
+    - "coverage/"
+    - "*.log"
+  significant_files:
+    - "package.json"
+    - "README.md"
+    - "Dockerfile"
+    - "*.config.js"
+
+# Structure validation rules
+validation:
+  required_files:
+    - "package.json"
+    - "README.md"
+  required_directories:
+    - "src/"
+  forbidden_patterns:
+    - "TODO_DELETE_*"
+    - "temp*"
+
+# Change tracking
+change_tracking:
+  structure_version: "1.0.0"
+  last_updated: "YYYY-MM-DD"
+  change_frequency: "stable"     # stable, evolving, volatile
+  
+# Notes and additional context
+notes: |
+  Additional information about the project structure,
+  including rationale for organization decisions,
+  any deviations from standard patterns, or
+  special considerations for navigation.

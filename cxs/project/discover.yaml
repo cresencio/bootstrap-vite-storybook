@@ -1,0 +1,142 @@
+# Project Discovery Configuration
+
+# Discovery scope and boundaries
+discovery_scope:
+  include_paths:
+    - "src/"
+    - "lib/"
+    - "config/"
+    - "docs/"
+  exclude_paths:
+    - "node_modules/"
+    - "vendor/"
+    - "build/"
+    - "dist/"
+    - ".git/"
+  file_patterns:
+    - "*.js"
+    - "*.py"
+    - "*.java"
+    - "*.md"
+    - "*.yaml"
+    - "*.json"
+
+# Discovery objectives
+objectives:
+  - "map_project_structure"
+  - "identify_components"
+  - "document_interfaces"
+  - "extract_patterns"
+  - "assess_dependencies"
+
+# Component identification rules
+component_detection:
+  directories:
+    depth_limit: 3
+    ignore_patterns:
+      - "test*"
+      - "spec*"
+      - "mock*"
+  files:
+    significance_threshold: 100  # minimum lines of code
+    entry_points:
+      - "main.*"
+      - "index.*"
+      - "app.*"
+      - "server.*"
+
+# Pattern analysis configuration
+pattern_analysis:
+  naming_conventions:
+    detect_camelCase: true
+    detect_snake_case: true
+    detect_kebab_case: true
+  architectural_patterns:
+    - "mvc"
+    - "microservices"
+    - "layered"
+    - "event_driven"
+  design_patterns:
+    - "singleton"
+    - "factory"
+    - "observer"
+    - "repository"
+
+# Dependency mapping
+dependency_analysis:
+  include_external: true
+  include_internal: true
+  dependency_sources:
+    - "package.json"
+    - "requirements.txt"
+    - "pom.xml"
+    - "Gemfile"
+    - "go.mod"
+  relationship_types:
+    - "imports"
+    - "inheritance"
+    - "composition"
+    - "usage"
+
+# Interface documentation
+interface_discovery:
+  api_endpoints:
+    detect_rest: true
+    detect_graphql: true
+    detect_rpc: true
+  data_interfaces:
+    detect_schemas: true
+    detect_models: true
+    detect_contracts: true
+  service_interfaces:
+    detect_ports: true
+    detect_protocols: true
+    detect_formats: true
+
+# Output configuration
+output_format:
+  structure_map: "structure_map.yaml"
+  component_catalog: "components.yaml"
+  dependency_graph: "dependencies.yaml"
+  interface_spec: "interfaces.yaml"
+  discovery_report: "discovery_report.md"
+
+# Quality and validation
+validation_rules:
+  completeness_threshold: 80  # percentage of project covered
+  accuracy_validation: true
+  consistency_checks: true
+  
+# Discovery execution parameters
+execution:
+  timeout_minutes: 30
+  parallel_analysis: true
+  cache_results: true
+  incremental_updates: true
+
+# Reporting preferences  
+reporting:
+  include_metrics: true
+  include_diagrams: false
+  detail_level: "medium"  # low, medium, high
+  output_formats:
+    - "markdown"
+    - "yaml"
+    - "json"
+
+# Custom discovery rules (project-specific)
+custom_rules:
+  # Add project-specific discovery logic here
+  # Example:
+  # business_logic_paths:
+  #   - "src/domain/"
+  #   - "src/business/"
+  # configuration_files:
+  #   - "config.yaml"
+  #   - "settings.json"
+
+# Discovery scheduling
+schedule:
+  automatic_discovery: false
+  trigger_on_changes: false
+  periodic_refresh: "weekly"  # daily, weekly, monthly, manual
