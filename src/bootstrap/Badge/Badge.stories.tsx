@@ -1,16 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Badge from './Badge';
-import type { BadgeProps } from './Badge';
-import { Button } from '../Button/Button';
+import { Badge, PositionedBadge, NotificationDot } from './Badge';
 
-const meta: Meta<BadgeProps> = {
+const meta: Meta<typeof Badge> = {
   title: 'Bootstrap/Badge',
   component: Badge,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: 'Badges are small count and labeling components. They scale to match the size of the immediate parent element by using relative font sizing and em units.',
+        component: `Badges are small count and labeling components that scale to match the size of their parent element using relative font sizing and \`em\` units.
+
+## Components
+
+- **Badge** - The main badge component for labels and counts
+- **PositionedBadge** - Absolutely positioned badge for notification counters
+- **NotificationDot** - Small dot indicator for status notifications
+
+## Features
+
+- Scales with parent element size
+- Multiple color variants
+- Pill shape option
+- Polymorphic (renders as span, a, or button)
+- Positioned badges for notification indicators
+- Accessible with visually hidden text support`,
       },
     },
   },
@@ -24,35 +37,43 @@ const meta: Meta<BadgeProps> = {
         defaultValue: { summary: 'primary' },
       },
     },
-    bg: {
-      control: 'boolean',
-      description: 'Use background color with contrasting text',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
+    children: {
+      control: 'text',
+      description: 'Badge content',
     },
     pill: {
       control: 'boolean',
-      description: 'Render as a pill shape with rounded corners',
+      description: 'Render as a pill shape with more rounded corners',
       table: {
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
+    },
+    as: {
+      control: 'select',
+      options: ['span', 'a', 'button'],
+      description: 'HTML element to render as',
+      table: {
+        type: { summary: "'span' | 'a' | 'button'" },
+        defaultValue: { summary: 'span' },
+      },
+    },
+    href: {
+      control: 'text',
+      description: 'Link href (when as="a")',
     },
     className: {
       control: 'text',
       description: 'Additional CSS classes',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<BadgeProps>;
+type Story = StoryObj<typeof Badge>;
+
+// ============================================================================
+// Basic Variants
+// ============================================================================
 
 export const Primary: Story = {
   args: {
@@ -110,6 +131,11 @@ export const Dark: Story = {
   },
 };
 
+// ============================================================================
+// Feature Stories
+// ============================================================================
+
+/** Badges scale to match the size of the immediate parent element by using relative font sizing and em units. */
 export const InHeadings: Story = {
   render: () => (
     <div>
@@ -121,18 +147,12 @@ export const InHeadings: Story = {
       <h6>Example heading <Badge variant="secondary">New</Badge></h6>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badges scale to match the size of the immediate parent element.',
-      },
-    },
-  },
 };
 
+/** Use the pill prop for a more rounded badge shape. */
 export const PillBadges: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+    <div className="d-flex gap-2 flex-wrap">
       <Badge variant="primary" pill>Primary</Badge>
       <Badge variant="secondary" pill>Secondary</Badge>
       <Badge variant="success" pill>Success</Badge>
@@ -143,46 +163,105 @@ export const PillBadges: Story = {
       <Badge variant="dark" pill>Dark</Badge>
     </div>
   ),
+};
+
+/** Badges can be used inside buttons to provide a counter. */
+export const InButton: Story = {
+  render: () => (
+    <button type="button" className="btn btn-primary">
+      Notifications <Badge variant="secondary">4</Badge>
+    </button>
+  ),
+};
+
+/** Use PositionedBadge for notification counters on buttons. Parent needs `position-relative`. */
+export const PositionedCounter: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Use the pill prop to make badges more rounded with a larger border-radius.',
+        story: 'Positioned badges are used for notification counters. The parent element must have `position-relative` class.',
       },
     },
   },
-};
-
-export const CounterBadge: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-      <Button variant="primary" className="position-relative">
+    <div className="d-flex gap-4">
+      <button type="button" className="btn btn-primary position-relative">
         Inbox
-        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        <PositionedBadge variant="danger">
           99+
-          <span className="visually-hidden">unread messages</span>
-        </span>
-      </Button>
-      
-      <Button variant="primary" className="position-relative">
-        Profile
-        <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-          <span className="visually-hidden">New alerts</span>
-        </span>
-      </Button>
+        </PositionedBadge>
+      </button>
+      <button type="button" className="btn btn-secondary position-relative">
+        Messages
+        <PositionedBadge variant="success">
+          5
+        </PositionedBadge>
+      </button>
     </div>
   ),
+};
+
+/** Use NotificationDot for a simple status indicator without a count. */
+export const DotIndicator: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Badges can be used as notification counters on buttons.',
+        story: 'Notification dots are small indicators without text content. Always provide `visuallyHiddenText` for accessibility.',
       },
     },
   },
+  render: () => (
+    <div className="d-flex gap-4">
+      <button type="button" className="btn btn-primary position-relative">
+        Profile
+        <NotificationDot variant="danger" visuallyHiddenText="New alerts" />
+      </button>
+      <button type="button" className="btn btn-secondary position-relative">
+        Settings
+        <NotificationDot variant="success" visuallyHiddenText="All synced" />
+      </button>
+    </div>
+  ),
 };
 
+/** PositionedBadge supports different positions relative to the parent. */
+export const BadgePositions: Story = {
+  render: () => (
+    <div className="d-flex gap-5 p-4">
+      <button type="button" className="btn btn-outline-primary position-relative">
+        Top End
+        <PositionedBadge position="top-end" variant="danger">1</PositionedBadge>
+      </button>
+      <button type="button" className="btn btn-outline-primary position-relative">
+        Top Start
+        <PositionedBadge position="top-start" variant="danger">2</PositionedBadge>
+      </button>
+      <button type="button" className="btn btn-outline-primary position-relative">
+        Bottom End
+        <PositionedBadge position="bottom-end" variant="danger">3</PositionedBadge>
+      </button>
+      <button type="button" className="btn btn-outline-primary position-relative">
+        Bottom Start
+        <PositionedBadge position="bottom-start" variant="danger">4</PositionedBadge>
+      </button>
+    </div>
+  ),
+};
+
+/** Badge can render as a link using the `as` prop. */
+export const AsLink: Story = {
+  args: {
+    variant: 'primary',
+    children: 'Clickable Badge',
+    as: 'a',
+    href: '#',
+  },
+};
+
+/** All available badge variants in one view. */
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+    <div className="d-flex gap-2 flex-wrap">
       <Badge variant="primary">Primary</Badge>
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="success">Success</Badge>
@@ -192,5 +271,40 @@ export const AllVariants: Story = {
       <Badge variant="light">Light</Badge>
       <Badge variant="dark">Dark</Badge>
     </div>
+  ),
+};
+
+/** All variants as pills. */
+export const AllPillVariants: Story = {
+  render: () => (
+    <div className="d-flex gap-2 flex-wrap">
+      <Badge variant="primary" pill>Primary</Badge>
+      <Badge variant="secondary" pill>Secondary</Badge>
+      <Badge variant="success" pill>Success</Badge>
+      <Badge variant="danger" pill>Danger</Badge>
+      <Badge variant="warning" pill>Warning</Badge>
+      <Badge variant="info" pill>Info</Badge>
+      <Badge variant="light" pill>Light</Badge>
+      <Badge variant="dark" pill>Dark</Badge>
+    </div>
+  ),
+};
+
+/** PositionedBadge with visually hidden text for screen readers. */
+export const AccessibleBadge: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `visuallyHiddenText` to provide context for screen readers about what the badge count represents.',
+      },
+    },
+  },
+  render: () => (
+    <button type="button" className="btn btn-primary position-relative">
+      Inbox
+      <PositionedBadge variant="danger" visuallyHiddenText="unread messages">
+        99+
+      </PositionedBadge>
+    </button>
   ),
 };
