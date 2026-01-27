@@ -2,7 +2,7 @@
 
 ## Phase 1: Bug Fixes
 
-- [ ] Fix ButtonGroup dropdown flush alignment (dropdowns not flush with edge of other buttons)
+- [x] Fix ButtonGroup dropdown flush alignment (added `btnGroup` prop to Dropdown)
 
 ## Phase 2: Story Improvements
 

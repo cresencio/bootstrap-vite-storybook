@@ -54,6 +54,14 @@ const meta: Meta<DropdownProps> = {
         defaultValue: { summary: 'false' },
       },
     },
+    btnGroup: {
+      control: 'boolean',
+      description: 'Use btn-group wrapper for nesting in ButtonGroup (enables flush alignment)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
   },
 };
 

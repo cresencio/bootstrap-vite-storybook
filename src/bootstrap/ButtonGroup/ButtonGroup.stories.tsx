@@ -188,6 +188,7 @@ export const VerticalWithDropdowns: Story = {
       <Dropdown
         buttonText="Dropdown"
         variant="primary"
+        btnGroup
         items={[
           { label: 'Action', href: '#' },
           { label: 'Another action', href: '#' },
@@ -199,6 +200,7 @@ export const VerticalWithDropdowns: Story = {
         buttonText="Dropdown"
         variant="primary"
         direction="up"
+        btnGroup
         items={[
           { label: 'Action', href: '#' },
           { label: 'Another action', href: '#' },
@@ -305,6 +307,7 @@ export const WithDropdown: Story = {
       <Dropdown
         buttonText="Dropdown"
         variant="primary"
+        btnGroup
         items={[
           { label: 'Dropdown link', href: '#' },
           { label: 'Dropdown link', href: '#' },

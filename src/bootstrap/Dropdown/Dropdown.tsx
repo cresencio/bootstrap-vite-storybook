@@ -28,6 +28,8 @@ export interface DropdownProps {
   direction?: 'down' | 'up' | 'start' | 'end';
   /** Dark dropdown style */
   dark?: boolean;
+  /** Use btn-group wrapper (for nesting in ButtonGroup) */
+  btnGroup?: boolean;
   /** Additional CSS classes for dropdown wrapper */
   className?: string;
   /** Additional CSS classes for button */
@@ -40,14 +42,26 @@ export const Dropdown: React.FC<DropdownProps> = ({
   variant = 'secondary',
   direction = 'down',
   dark = false,
+  btnGroup = false,
   className = '',
   buttonClassName = '',
 }) => {
-  const dropdownClass = direction === 'down' ? 'dropdown' : `drop${direction}`;
+  // When btnGroup is true, use btn-group class for flush alignment in ButtonGroup
+  // Otherwise use standard dropdown/dropup/dropstart/dropend classes
+  let wrapperClass: string;
+  if (btnGroup) {
+    wrapperClass = 'btn-group';
+    if (direction === 'up') wrapperClass += ' dropup';
+    else if (direction === 'start') wrapperClass += ' dropstart';
+    else if (direction === 'end') wrapperClass += ' dropend';
+  } else {
+    wrapperClass = direction === 'down' ? 'dropdown' : `drop${direction}`;
+  }
+  
   const menuClass = dark ? 'dropdown-menu dropdown-menu-dark' : 'dropdown-menu';
 
   return (
-    <div className={`${dropdownClass} ${className}`.trim()}>
+    <div className={`${wrapperClass} ${className}`.trim()}>
       <button
         className={`btn btn-${variant} dropdown-toggle ${buttonClassName}`.trim()}
         type="button"
