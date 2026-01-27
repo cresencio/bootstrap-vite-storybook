@@ -485,4 +485,373 @@ $container-max-widths: (
     font-weight: 600;
     text-shadow: 0 0 5px currentColor;
   }
+  
+  // ==========================================
+  // ListGroup neon styling
+  // ==========================================
+  .list-group-item {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-body-text);
+    
+    &.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #000;
+      box-shadow: 0 0 10px var(--color-primary);
+    }
+    
+    &.list-group-item-action:hover,
+    &.list-group-item-action:focus {
+      background-color: var(--color-surface-alt);
+      color: var(--color-body-text);
+    }
+    
+    &.list-group-item-action:active {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary);
+    }
+  }
+  
+  .list-group-item-primary {
+    background-color: rgba(0, 212, 255, 0.15);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+  
+  .list-group-item-secondary {
+    background-color: rgba(177, 156, 217, 0.15);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    box-shadow: 0 0 10px rgba(177, 156, 217, 0.3);
+  }
+  
+  .list-group-item-success {
+    background-color: rgba(0, 255, 136, 0.15);
+    border-color: var(--color-success);
+    color: var(--color-success);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  }
+  
+  .list-group-item-info {
+    background-color: rgba(0, 255, 255, 0.15);
+    border-color: var(--color-info);
+    color: var(--color-info);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  
+  .list-group-item-warning {
+    background-color: rgba(255, 234, 0, 0.15);
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+    box-shadow: 0 0 10px rgba(255, 234, 0, 0.3);
+  }
+  
+  .list-group-item-danger {
+    background-color: rgba(255, 42, 109, 0.15);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.3);
+  }
+  
+  .list-group-item-light {
+    background-color: rgba(248, 249, 250, 0.1);
+    border-color: var(--color-light);
+    color: var(--color-light);
+    box-shadow: 0 0 10px rgba(248, 249, 250, 0.2);
+  }
+  
+  .list-group-item-dark {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-dark);
+    color: var(--color-dark);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  // ==========================================
+  // Progress neon styling
+  // ==========================================
+  .progress {
+    background-color: var(--color-surface-alt);
+  }
+  
+  .progress-bar {
+    &.bg-primary { background-color: var(--color-primary) !important; box-shadow: 0 0 10px var(--color-primary); }
+    &.bg-secondary { background-color: var(--color-secondary) !important; box-shadow: 0 0 10px var(--color-secondary); }
+    &.bg-success { background-color: var(--color-success) !important; box-shadow: 0 0 10px var(--color-success); }
+    &.bg-info { background-color: var(--color-info) !important; box-shadow: 0 0 10px var(--color-info); }
+    &.bg-warning { background-color: var(--color-warning) !important; box-shadow: 0 0 10px var(--color-warning); }
+    &.bg-danger { background-color: var(--color-danger) !important; box-shadow: 0 0 10px var(--color-danger); }
+  }
+  
+  // ==========================================
+  // Card neon styling
+  // ==========================================
+  .card {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-body-text);
+  }
+  
+  .card-header, .card-footer {
+    background-color: var(--color-surface-alt);
+    border-color: var(--color-border);
+  }
+  
+  .card-title, .card-subtitle {
+    color: var(--color-heading);
+  }
+  
+  // ==========================================
+  // Pagination neon styling
+  // ==========================================
+  .page-link {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-primary);
+    
+    &:hover {
+      background-color: var(--color-surface-alt);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
+    }
+  }
+  
+  .page-item.active .page-link {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #000;
+    box-shadow: 0 0 15px var(--color-primary);
+  }
+  
+  .page-item.disabled .page-link {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-muted);
+  }
+  
+  // ==========================================
+  // Modal/Offcanvas neon styling
+  // ==========================================
+  .modal-content {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-body-text);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+  }
+  
+  .modal-header, .modal-footer {
+    border-color: var(--color-border);
+  }
+  
+  .offcanvas {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-body-text);
+  }
+  
+  .offcanvas-header {
+    border-color: var(--color-border);
+  }
+  
+  // Close buttons in dark mode
+  .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+  
+  // ==========================================
+  // Toast neon styling
+  // ==========================================
+  .toast {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-body-text);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+  }
+  
+  .toast-header {
+    background-color: var(--color-surface-alt);
+    border-color: var(--color-border);
+    color: var(--color-heading);
+  }
+  
+  // ==========================================
+  // Nav/Tabs neon styling
+  // ==========================================
+  .nav-link {
+    color: var(--color-body-text);
+    
+    &:hover, &:focus {
+      color: var(--color-primary);
+    }
+    
+    &.active {
+      color: var(--color-primary);
+    }
+    
+    &.disabled {
+      color: var(--color-muted);
+    }
+  }
+  
+  .nav-tabs {
+    border-color: var(--color-border);
+    
+    .nav-link {
+      &:hover, &:focus {
+        border-color: var(--color-surface-alt) var(--color-surface-alt) var(--color-border);
+      }
+      
+      &.active {
+        background-color: var(--color-surface);
+        border-color: var(--color-border) var(--color-border) var(--color-surface);
+        color: var(--color-primary);
+      }
+    }
+  }
+  
+  .nav-pills {
+    .nav-link.active {
+      background-color: var(--color-primary);
+      color: #000;
+      box-shadow: 0 0 10px var(--color-primary);
+    }
+  }
+  
+  // ==========================================
+  // Dropdown neon styling
+  // ==========================================
+  .dropdown-menu {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dropdown-item {
+    color: var(--color-body-text);
+    
+    &:hover, &:focus {
+      background-color: var(--color-surface-alt);
+      color: var(--color-primary);
+    }
+    
+    &.active, &:active {
+      background-color: var(--color-primary);
+      color: #000;
+    }
+    
+    &.disabled {
+      color: var(--color-muted);
+    }
+  }
+  
+  .dropdown-divider {
+    border-color: var(--color-border);
+  }
+  
+  .dropdown-header {
+    color: var(--color-muted);
+  }
+  
+  // ==========================================
+  // Spinner neon styling
+  // ==========================================
+  .spinner-border, .spinner-grow {
+    &.text-primary { color: var(--color-primary) !important; }
+    &.text-secondary { color: var(--color-secondary) !important; }
+    &.text-success { color: var(--color-success) !important; }
+    &.text-info { color: var(--color-info) !important; }
+    &.text-warning { color: var(--color-warning) !important; }
+    &.text-danger { color: var(--color-danger) !important; }
+    &.text-light { color: var(--color-light) !important; }
+    &.text-dark { color: var(--color-dark) !important; }
+  }
+  
+  // ==========================================
+  // Tooltip/Popover neon styling
+  // ==========================================
+  .tooltip-inner {
+    background-color: var(--color-surface);
+    color: var(--color-body-text);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+  }
+  
+  .bs-tooltip-top .tooltip-arrow::before,
+  .bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+    border-top-color: var(--color-surface);
+  }
+  
+  .bs-tooltip-bottom .tooltip-arrow::before,
+  .bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
+    border-bottom-color: var(--color-surface);
+  }
+  
+  .bs-tooltip-start .tooltip-arrow::before,
+  .bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow::before {
+    border-left-color: var(--color-surface);
+  }
+  
+  .bs-tooltip-end .tooltip-arrow::before,
+  .bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow::before {
+    border-right-color: var(--color-surface);
+  }
+  
+  .popover {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  }
+  
+  .popover-header {
+    background-color: var(--color-surface-alt);
+    border-color: var(--color-border);
+    color: var(--color-heading);
+  }
+  
+  .popover-body {
+    color: var(--color-body-text);
+  }
+  
+  // ==========================================
+  // Breadcrumb dark styling
+  // ==========================================
+  .breadcrumb-item {
+    color: var(--color-body-text);
+    
+    &.active {
+      color: var(--color-muted);
+    }
+    
+    & + .breadcrumb-item::before {
+      color: var(--color-muted);
+    }
+  }
+  
+  // ==========================================
+  // Carousel dark styling
+  // ==========================================
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: drop-shadow(0 0 5px var(--color-primary));
+  }
+  
+  .carousel-indicators [data-bs-target] {
+    background-color: rgba(255, 255, 255, 0.5);
+    
+    &.active {
+      background-color: var(--color-primary);
+      box-shadow: 0 0 8px var(--color-primary);
+    }
+  }
+  
+  .carousel-caption {
+    color: var(--color-light);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
 }

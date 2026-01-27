@@ -25,3 +25,7 @@ $breadcrumb-divider-flipped: $breadcrumb-divider !default;
 
 // Breadcrumb border radius
 $breadcrumb-border-radius: null !default;
+
+// Breadcrumb link colors
+$breadcrumb-link-color: $token-color-primary !default;
+$breadcrumb-link-hover-color: darken($token-color-primary, 15%) !default;

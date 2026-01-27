@@ -14,6 +14,8 @@ import {
   SimpleCard,
 } from './Card';
 import type { CardProps } from './Card';
+import { Nav } from '../Nav/Nav';
+import { Button } from '../Button/Button';
 
 const meta: Meta<typeof Card> = {
   title: 'Bootstrap/Card',
@@ -560,55 +562,51 @@ export const KitchenSink: Story = {
  * Add navigation to a card's header with Bootstrap's nav components.
  */
 export const Navigation: Story = {
-  render: () => (
-    <>
-      <Card className="text-center mb-3">
-        <CardHeader>
-          <ul className="nav nav-tabs card-header-tabs">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="true" href="#">Active</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-        </CardHeader>
-        <CardBody>
-          <CardTitle>Special title treatment</CardTitle>
-          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </CardBody>
-      </Card>
+  render: () => {
+    const navItems = [
+      { id: 'active', label: 'Active', href: '#', active: true },
+      { id: 'link', label: 'Link', href: '#' },
+      { id: 'disabled', label: 'Disabled', disabled: true },
+    ];
 
-      <Card className="text-center">
-        <CardHeader>
-          <ul className="nav nav-pills card-header-pills">
-            <li className="nav-item">
-              <a className="nav-link active" href="#">Active</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-        </CardHeader>
-        <CardBody>
-          <CardTitle>Special title treatment</CardTitle>
-          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </CardBody>
-      </Card>
-    </>
-  ),
+    return (
+      <>
+        <Card className="text-center mb-3">
+          <CardHeader>
+            <Nav
+              items={navItems}
+              variant="tabs"
+              className="card-header-tabs"
+            />
+          </CardHeader>
+          <CardBody>
+            <CardTitle>Special title treatment</CardTitle>
+            <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+            <Button variant="primary">Go somewhere</Button>
+          </CardBody>
+        </Card>
+
+        <Card className="text-center">
+          <CardHeader>
+            <Nav
+              items={navItems}
+              variant="pills"
+              className="card-header-pills"
+            />
+          </CardHeader>
+          <CardBody>
+            <CardTitle>Special title treatment</CardTitle>
+            <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+            <Button variant="primary">Go somewhere</Button>
+          </CardBody>
+        </Card>
+      </>
+    );
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Add navigation to a card\'s header with Bootstrap\'s nav components. Use `.card-header-tabs` for tabs or `.card-header-pills` for pills.',
+        story: 'Add navigation to a card\'s header using the Nav component. Use `variant="tabs"` with `className="card-header-tabs"` for tabs, or `variant="pills"` with `className="card-header-pills"` for pills.',
       },
     },
   },
