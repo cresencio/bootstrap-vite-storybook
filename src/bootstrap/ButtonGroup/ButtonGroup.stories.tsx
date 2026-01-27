@@ -1,17 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ButtonGroup from './ButtonGroup';
-import type { ButtonGroupProps } from './ButtonGroup';
-import { Button } from '../Button/Button';
+import { action } from 'storybook/actions';
+import { ButtonGroup, ButtonToolbar, ToggleButtonGroup } from './ButtonGroup';
+import { Button, LinkButton } from '../Button/Button';
 import Dropdown from '../Dropdown/Dropdown';
 
-const meta: Meta<ButtonGroupProps> = {
+const meta: Meta<typeof ButtonGroup> = {
   title: 'Bootstrap/ButtonGroup',
   component: ButtonGroup,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: 'Group a series of buttons together on a single line or stack them in a vertical column.',
+        component: `Group a series of buttons together on a single line or stack them vertically.
+
+## Components
+
+- **ButtonGroup** - Container for grouping buttons
+- **ButtonToolbar** - Container for grouping multiple button groups
+- **ToggleButtonGroup** - Checkbox/radio toggle button group with controlled state
+
+## Features
+
+- Horizontal and vertical layouts
+- 3 sizes (sm, md, lg)
+- Nested dropdowns
+- Checkbox and radio toggle buttons
+- ARIA accessibility support`,
       },
     },
   },
@@ -29,7 +43,6 @@ const meta: Meta<ButtonGroupProps> = {
       control: 'boolean',
       description: 'Stack buttons vertically',
       table: {
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
@@ -37,92 +50,44 @@ const meta: Meta<ButtonGroupProps> = {
       control: 'text',
       description: 'ARIA role for the button group',
       table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '"group"' },
+        defaultValue: { summary: 'group' },
       },
     },
     ariaLabel: {
       control: 'text',
       description: 'ARIA label for accessibility',
-      table: {
-        type: { summary: 'string' },
-      },
     },
     className: {
       control: 'text',
       description: 'Additional CSS classes',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '""' },
-      },
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<ButtonGroupProps>;
+type Story = StoryObj<typeof ButtonGroup>;
 
-export const BasicExample: Story = {
+// ============================================================================
+// Basic Examples
+// ============================================================================
+
+export const Default: Story = {
   render: () => (
-    <div className="btn-group" role="group" aria-label="Basic example">
-      <button type="button" className="btn btn-primary">Left</button>
-      <button type="button" className="btn btn-primary">Middle</button>
-      <button type="button" className="btn btn-primary">Right</button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Group a series of buttons together on a single line with the `.btn-group` wrapper.',
-      },
-    },
-  },
-};
-
-export const UsingComponent: Story = {
-  args: {
-    ariaLabel: 'Basic example',
-  },
-  render: (args) => (
-    <ButtonGroup {...args}>
+    <ButtonGroup ariaLabel="Basic example">
       <Button variant="primary">Left</Button>
       <Button variant="primary">Middle</Button>
       <Button variant="primary">Right</Button>
     </ButtonGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Same example using the ButtonGroup component with Button components. Button groups require an appropriate `role` attribute and explicit label to ensure assistive technologies identify buttons as grouped. Use `role="group"` for button groups or `role="toolbar"` for button toolbars, then use `aria-label` or `aria-labelledby` to label them.',
-      },
-    },
-  },
-};
-
-export const LinkButtons: Story = {
-  render: () => (
-    <div className="btn-group">
-      <a href="#" className="btn btn-primary active" aria-current="page">Active link</a>
-      <a href="#" className="btn btn-primary">Link</a>
-      <a href="#" className="btn btn-primary">Link</a>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Button group classes can also be added to groups of links, as an alternative to the `.nav` navigation components.',
-      },
-    },
-  },
 };
 
 export const MixedStyles: Story = {
   render: () => (
-    <div className="btn-group" role="group" aria-label="Basic mixed styles example">
-      <button type="button" className="btn btn-danger">Left</button>
-      <button type="button" className="btn btn-warning">Middle</button>
-      <button type="button" className="btn btn-success">Right</button>
-    </div>
+    <ButtonGroup ariaLabel="Mixed styles">
+      <Button variant="danger">Left</Button>
+      <Button variant="warning">Middle</Button>
+      <Button variant="success">Right</Button>
+    </ButtonGroup>
   ),
   parameters: {
     docs: {
@@ -135,210 +100,83 @@ export const MixedStyles: Story = {
 
 export const OutlineButtons: Story = {
   render: () => (
-    <div className="btn-group" role="group" aria-label="Basic outlined example">
-      <button type="button" className="btn btn-outline-primary">Left</button>
-      <button type="button" className="btn btn-outline-primary">Middle</button>
-      <button type="button" className="btn btn-outline-primary">Right</button>
-    </div>
+    <ButtonGroup ariaLabel="Outlined buttons">
+      <Button variant="primary" outline>Left</Button>
+      <Button variant="primary" outline>Middle</Button>
+      <Button variant="primary" outline>Right</Button>
+    </ButtonGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use outline button styles within button groups.',
-      },
-    },
-  },
 };
 
-export const CheckboxToggle: Story = {
+export const LinkButtons: Story = {
   render: () => (
-    <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-      <input type="checkbox" className="btn-check" id="btncheck1" autoComplete="off" />
-      <label className="btn btn-outline-primary" htmlFor="btncheck1">Checkbox 1</label>
-
-      <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off" />
-      <label className="btn btn-outline-primary" htmlFor="btncheck2">Checkbox 2</label>
-
-      <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off" />
-      <label className="btn btn-outline-primary" htmlFor="btncheck3">Checkbox 3</label>
-    </div>
+    <ButtonGroup ariaLabel="Link buttons">
+      <LinkButton href="#" variant="primary" active>Active link</LinkButton>
+      <LinkButton href="#" variant="primary">Link</LinkButton>
+      <LinkButton href="#" variant="primary">Link</LinkButton>
+    </ButtonGroup>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Combine button-like checkbox toggle buttons into a seamless looking button group.',
+        story: 'Button group classes work with link buttons as well.',
       },
     },
   },
 };
 
-export const RadioToggle: Story = {
+// ============================================================================
+// Sizes
+// ============================================================================
+
+export const Sizes: Story = {
   render: () => (
-    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-      <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" defaultChecked />
-      <label className="btn btn-outline-primary" htmlFor="btnradio1">Radio 1</label>
+    <div className="d-flex flex-column gap-3">
+      <ButtonGroup size="lg" ariaLabel="Large button group">
+        <Button variant="primary" outline>Left</Button>
+        <Button variant="primary" outline>Middle</Button>
+        <Button variant="primary" outline>Right</Button>
+      </ButtonGroup>
 
-      <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" />
-      <label className="btn btn-outline-primary" htmlFor="btnradio2">Radio 2</label>
+      <ButtonGroup ariaLabel="Default button group">
+        <Button variant="primary" outline>Left</Button>
+        <Button variant="primary" outline>Middle</Button>
+        <Button variant="primary" outline>Right</Button>
+      </ButtonGroup>
 
-      <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off" />
-      <label className="btn btn-outline-primary" htmlFor="btnradio3">Radio 3</label>
+      <ButtonGroup size="sm" ariaLabel="Small button group">
+        <Button variant="primary" outline>Left</Button>
+        <Button variant="primary" outline>Middle</Button>
+        <Button variant="primary" outline>Right</Button>
+      </ButtonGroup>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Combine button-like radio toggle buttons into a seamless looking button group. Radio buttons in the same group share a `name` attribute.',
+        story: 'Apply `size` prop to the group instead of individual buttons.',
       },
     },
   },
 };
 
-export const ButtonToolbar: Story = {
-  render: () => (
-    <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-      <div className="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" className="btn btn-primary">1</button>
-        <button type="button" className="btn btn-primary">2</button>
-        <button type="button" className="btn btn-primary">3</button>
-        <button type="button" className="btn btn-primary">4</button>
-      </div>
-      <div className="btn-group me-2" role="group" aria-label="Second group">
-        <button type="button" className="btn btn-secondary">5</button>
-        <button type="button" className="btn btn-secondary">6</button>
-        <button type="button" className="btn btn-secondary">7</button>
-      </div>
-      <div className="btn-group" role="group" aria-label="Third group">
-        <button type="button" className="btn btn-info">8</button>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more. Use `role="toolbar"` for button toolbars.',
-      },
-    },
-  },
-};
-
-export const ToolbarWithInput: Story = {
-  render: () => (
-    <div className="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-      <div className="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" className="btn btn-outline-secondary">1</button>
-        <button type="button" className="btn btn-outline-secondary">2</button>
-        <button type="button" className="btn btn-outline-secondary">3</button>
-        <button type="button" className="btn btn-outline-secondary">4</button>
-      </div>
-      <div className="input-group">
-        <div className="input-group-text" id="btnGroupAddon">@</div>
-        <input type="text" className="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon" />
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Mix input groups with button groups in toolbars. Use utility classes like `me-2` to space elements properly.',
-      },
-    },
-  },
-};
-
-export const ToolbarJustified: Story = {
-  render: () => (
-    <div className="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-      <div className="btn-group" role="group" aria-label="First group">
-        <button type="button" className="btn btn-outline-secondary">1</button>
-        <button type="button" className="btn btn-outline-secondary">2</button>
-        <button type="button" className="btn btn-outline-secondary">3</button>
-        <button type="button" className="btn btn-outline-secondary">4</button>
-      </div>
-      <div className="input-group">
-        <div className="input-group-text" id="btnGroupAddon2">@</div>
-        <input type="text" className="form-control" placeholder="Input group example" aria-label="Input group example" aria-describedby="btnGroupAddon2" />
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use flexbox utilities like `justify-content-between` to space toolbar elements apart.',
-      },
-    },
-  },
-};
-
-export const Sizing: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <div className="btn-group btn-group-lg" role="group" aria-label="Large button group">
-        <button type="button" className="btn btn-outline-primary">Left</button>
-        <button type="button" className="btn btn-outline-primary">Middle</button>
-        <button type="button" className="btn btn-outline-primary">Right</button>
-      </div>
-      
-      <div className="btn-group" role="group" aria-label="Default button group">
-        <button type="button" className="btn btn-outline-primary">Left</button>
-        <button type="button" className="btn btn-outline-primary">Middle</button>
-        <button type="button" className="btn btn-outline-primary">Right</button>
-      </div>
-      
-      <div className="btn-group btn-group-sm" role="group" aria-label="Small button group">
-        <button type="button" className="btn btn-outline-primary">Left</button>
-        <button type="button" className="btn btn-outline-primary">Middle</button>
-        <button type="button" className="btn btn-outline-primary">Right</button>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Instead of applying button sizing classes to every button in a group, just add `.btn-group-lg` or `.btn-group-sm` to the `.btn-group`.',
-      },
-    },
-  },
-};
-
-export const Nesting: Story = {
-  render: () => (
-    <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-      <button type="button" className="btn btn-primary">1</button>
-      <button type="button" className="btn btn-primary">2</button>
-
-      <Dropdown
-        buttonText="Dropdown"
-        variant="primary"
-        items={[
-          { label: 'Dropdown link', href: '#' },
-          { label: 'Dropdown link', href: '#' },
-        ]}
-      />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Place a `.btn-group` within another `.btn-group` when you want dropdown menus mixed with a series of buttons.',
-      },
-    },
-  },
-};
+// ============================================================================
+// Vertical
+// ============================================================================
 
 export const Vertical: Story = {
   render: () => (
-    <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
-      <button type="button" className="btn btn-primary">Button</button>
-      <button type="button" className="btn btn-primary">Button</button>
-      <button type="button" className="btn btn-primary">Button</button>
-      <button type="button" className="btn btn-primary">Button</button>
-    </div>
+    <ButtonGroup vertical ariaLabel="Vertical button group">
+      <Button variant="primary">Button</Button>
+      <Button variant="primary">Button</Button>
+      <Button variant="primary">Button</Button>
+      <Button variant="primary">Button</Button>
+    </ButtonGroup>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Make a set of buttons appear vertically stacked rather than horizontally using `.btn-group-vertical`.',
+        story: 'Use `vertical` prop to stack buttons vertically.',
       },
     },
   },
@@ -346,71 +184,318 @@ export const Vertical: Story = {
 
 export const VerticalWithDropdowns: Story = {
   render: () => (
-    <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
+    <ButtonGroup vertical ariaLabel="Vertical with dropdowns">
       <Dropdown
         buttonText="Dropdown"
         variant="primary"
         items={[
-          { label: 'Dropdown link', href: '#' },
-          { label: 'Dropdown link', href: '#' },
+          { label: 'Action', href: '#' },
+          { label: 'Another action', href: '#' },
         ]}
       />
-      <button type="button" className="btn btn-primary">Button</button>
-      <button type="button" className="btn btn-primary">Button</button>
-      <Dropdown
-        buttonText="Dropdown"
-        variant="primary"
-        direction="start"
-        items={[
-          { label: 'Dropdown link', href: '#' },
-          { label: 'Dropdown link', href: '#' },
-        ]}
-      />
-      <Dropdown
-        buttonText="Dropdown"
-        variant="primary"
-        direction="end"
-        items={[
-          { label: 'Dropdown link', href: '#' },
-          { label: 'Dropdown link', href: '#' },
-        ]}
-      />
+      <Button variant="primary">Button</Button>
+      <Button variant="primary">Button</Button>
       <Dropdown
         buttonText="Dropdown"
         variant="primary"
         direction="up"
         items={[
+          { label: 'Action', href: '#' },
+          { label: 'Another action', href: '#' },
+        ]}
+      />
+    </ButtonGroup>
+  ),
+};
+
+// ============================================================================
+// Button Toolbar
+// ============================================================================
+
+export const Toolbar: Story = {
+  render: () => (
+    <ButtonToolbar ariaLabel="Toolbar with button groups">
+      <ButtonGroup ariaLabel="First group" className="me-2">
+        <Button variant="primary">1</Button>
+        <Button variant="primary">2</Button>
+        <Button variant="primary">3</Button>
+        <Button variant="primary">4</Button>
+      </ButtonGroup>
+      <ButtonGroup ariaLabel="Second group" className="me-2">
+        <Button variant="secondary">5</Button>
+        <Button variant="secondary">6</Button>
+        <Button variant="secondary">7</Button>
+      </ButtonGroup>
+      <ButtonGroup ariaLabel="Third group">
+        <Button variant="info">8</Button>
+      </ButtonGroup>
+    </ButtonToolbar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `ButtonToolbar` to combine multiple button groups.',
+      },
+    },
+  },
+};
+
+export const ToolbarWithInput: Story = {
+  render: () => (
+    <ButtonToolbar ariaLabel="Toolbar with input">
+      <ButtonGroup ariaLabel="First group" className="me-2">
+        <Button variant="secondary" outline>1</Button>
+        <Button variant="secondary" outline>2</Button>
+        <Button variant="secondary" outline>3</Button>
+        <Button variant="secondary" outline>4</Button>
+      </ButtonGroup>
+      <div className="input-group">
+        <div className="input-group-text">@</div>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Input group example"
+          aria-label="Input group example"
+        />
+      </div>
+    </ButtonToolbar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mix input groups with button groups in toolbars.',
+      },
+    },
+  },
+};
+
+export const ToolbarJustified: Story = {
+  render: () => (
+    <ButtonToolbar ariaLabel="Toolbar justified" className="justify-content-between">
+      <ButtonGroup ariaLabel="First group">
+        <Button variant="secondary" outline>1</Button>
+        <Button variant="secondary" outline>2</Button>
+        <Button variant="secondary" outline>3</Button>
+        <Button variant="secondary" outline>4</Button>
+      </ButtonGroup>
+      <div className="input-group" style={{ maxWidth: '200px' }}>
+        <div className="input-group-text">@</div>
+        <input type="text" className="form-control" placeholder="Username" />
+      </div>
+    </ButtonToolbar>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use flexbox utilities like `justify-content-between` on the toolbar.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Nesting (Dropdowns)
+// ============================================================================
+
+export const WithDropdown: Story = {
+  render: () => (
+    <ButtonGroup ariaLabel="Button group with dropdown">
+      <Button variant="primary">1</Button>
+      <Button variant="primary">2</Button>
+      <Dropdown
+        buttonText="Dropdown"
+        variant="primary"
+        items={[
           { label: 'Dropdown link', href: '#' },
           { label: 'Dropdown link', href: '#' },
         ]}
+      />
+    </ButtonGroup>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Nest dropdown menus within button groups.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Toggle Button Groups
+// ============================================================================
+
+export const RadioToggle: Story = {
+  render: () => (
+    <ToggleButtonGroup
+      type="radio"
+      name="alignment"
+      options={[
+        { value: 'left', label: 'Left' },
+        { value: 'center', label: 'Center' },
+        { value: 'right', label: 'Right' },
+      ]}
+      defaultValue="left"
+      ariaLabel="Text alignment"
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `ToggleButtonGroup` with `type="radio"` for single selection.',
+      },
+    },
+  },
+};
+
+export const CheckboxToggle: Story = {
+  render: () => (
+    <ToggleButtonGroup
+      type="checkbox"
+      options={[
+        { value: 'bold', label: 'Bold' },
+        { value: 'italic', label: 'Italic' },
+        { value: 'underline', label: 'Underline' },
+      ]}
+      defaultValue={['bold']}
+      ariaLabel="Text formatting"
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `type="checkbox"` for multi-selection toggle buttons.',
+      },
+    },
+  },
+};
+
+export const ToggleVariants: Story = {
+  render: () => (
+    <div className="d-flex flex-column gap-3">
+      <ToggleButtonGroup
+        type="radio"
+        name="variant-primary"
+        variant="primary"
+        options={[
+          { value: '1', label: 'Option 1' },
+          { value: '2', label: 'Option 2' },
+          { value: '3', label: 'Option 3' },
+        ]}
+        defaultValue="1"
+        ariaLabel="Primary variant"
+      />
+
+      <ToggleButtonGroup
+        type="radio"
+        name="variant-danger"
+        variant="danger"
+        options={[
+          { value: '1', label: 'Option 1' },
+          { value: '2', label: 'Option 2' },
+          { value: '3', label: 'Option 3' },
+        ]}
+        defaultValue="1"
+        ariaLabel="Danger variant"
+      />
+
+      <ToggleButtonGroup
+        type="radio"
+        name="variant-success"
+        variant="success"
+        outline={false}
+        options={[
+          { value: '1', label: 'Option 1' },
+          { value: '2', label: 'Option 2' },
+          { value: '3', label: 'Option 3' },
+        ]}
+        defaultValue="1"
+        ariaLabel="Success solid variant"
       />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Vertical button groups can include nested dropdown menus with different directions (dropstart, dropend, dropup).',
+        story: 'Toggle button groups support all button variants. Use `outline={false}` for solid buttons.',
       },
     },
   },
 };
 
-export const VerticalRadio: Story = {
+export const VerticalToggle: Story = {
   render: () => (
-    <div className="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-      <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio1" autoComplete="off" defaultChecked />
-      <label className="btn btn-outline-danger" htmlFor="vbtn-radio1">Radio 1</label>
-      <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio2" autoComplete="off" />
-      <label className="btn btn-outline-danger" htmlFor="vbtn-radio2">Radio 2</label>
-      <input type="radio" className="btn-check" name="vbtn-radio" id="vbtn-radio3" autoComplete="off" />
-      <label className="btn btn-outline-danger" htmlFor="vbtn-radio3">Radio 3</label>
-    </div>
+    <ToggleButtonGroup
+      type="radio"
+      name="vertical-radio"
+      vertical
+      variant="danger"
+      options={[
+        { value: '1', label: 'Radio 1' },
+        { value: '2', label: 'Radio 2' },
+        { value: '3', label: 'Radio 3' },
+      ]}
+      defaultValue="1"
+      ariaLabel="Vertical radio toggle"
+    />
   ),
+};
+
+export const ControlledToggle: Story = {
+  render: () => {
+    const [value, setValue] = React.useState('center');
+    return (
+      <div className="d-flex flex-column gap-3">
+        <ToggleButtonGroup
+          type="radio"
+          name="controlled"
+          value={value}
+          onChange={(v) => {
+            setValue(v as string);
+            action('onChange')(v);
+          }}
+          options={[
+            { value: 'left', label: 'Left' },
+            { value: 'center', label: 'Center' },
+            { value: 'right', label: 'Right' },
+          ]}
+          ariaLabel="Controlled toggle"
+        />
+        <p className="text-muted mb-0">Selected: {value}</p>
+      </div>
+    );
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Vertical button groups also work with radio toggle buttons.',
+        story: 'Use `value` and `onChange` props for controlled mode.',
       },
     },
   },
 };
+
+export const DisabledOptions: Story = {
+  render: () => (
+    <ToggleButtonGroup
+      type="radio"
+      name="disabled-options"
+      options={[
+        { value: '1', label: 'Available' },
+        { value: '2', label: 'Disabled', disabled: true },
+        { value: '3', label: 'Available' },
+      ]}
+      defaultValue="1"
+      ariaLabel="With disabled option"
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Individual options can be disabled.',
+      },
+    },
+  },
+};
+
+// Need React for controlled example
+import React from 'react';
