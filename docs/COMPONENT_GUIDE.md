@@ -4,14 +4,36 @@ This guide explains how to add new components to the project following our estab
 
 ## Component Folder Structure
 
-Each component lives in its own folder under `src/components/` with four required files:
+Each component lives in its own folder under `src/bootstrap/` with three required files:
 
 ```
 ComponentName/
 ├── ComponentName.tsx          # React component implementation
-├── ComponentName.stories.tsx  # Storybook stories
-├── ComponentName.docs.mdx     # MDX documentation
+├── ComponentName.stories.tsx  # Storybook stories with autodocs
 └── _variables.scss            # Component-specific SCSS variables
+```
+
+## Building Blocks Pattern
+
+We use a **compound component pattern** for flexibility. Each component typically includes:
+
+1. **Main Component** - The primary container (e.g., `Card`, `Alert`, `Accordion`)
+2. **Building Blocks** - Sub-components for composition (e.g., `CardHeader`, `CardBody`, `CardTitle`)
+3. **Simple Wrapper** - Convenience component for common patterns (e.g., `SimpleCard`, `SimpleAlert`)
+
+```tsx
+// Building blocks pattern example
+<Card>
+  <CardHeader>Featured</CardHeader>
+  <CardBody>
+    <CardTitle>Title</CardTitle>
+    <CardText>Content here</CardText>
+  </CardBody>
+  <CardFooter>Footer</CardFooter>
+</Card>
+
+// Simple wrapper for common patterns
+<SimpleCard title="Title" text="Content" header="Featured" footer="Footer" />
 ```
 
 ## File Templates
@@ -21,26 +43,111 @@ ComponentName/
 ```tsx
 import React from 'react';
 
+// ============================================================================
+// Types
+// ============================================================================
+
+export type ComponentVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+
+// ============================================================================
+// Main Component
+// ============================================================================
+
 export interface ComponentNameProps {
-  /** Prop description */
-  propName?: string;
-  /** Children content */
-  children?: React.ReactNode;
+  /** Component content */
+  children: React.ReactNode;
+  /** Visual variant */
+  variant?: ComponentVariant;
   /** Additional CSS classes */
   className?: string;
 }
 
-export const ComponentName: React.FC<ComponentNameProps> = ({
-  propName = 'default',
+/**
+ * ComponentName description.
+ *
+ * @example
+ * ```tsx
+ * <ComponentName variant="primary">
+ *   <ComponentNameItem>Content</ComponentNameItem>
+ * </ComponentName>
+ * ```
+ */
+export function ComponentName({
   children,
+  variant = 'primary',
   className = '',
-}) => {
+}: ComponentNameProps) {
+  const classes = [
+    'component-class',
+    `component-${variant}`,
+    className,
+  ].filter(Boolean).join(' ');
+
   return (
-    <div className={`component-class ${className}`.trim()}>
+    <div className={classes}>
       {children}
     </div>
   );
-};
+}
+
+// ============================================================================
+// Building Block: ComponentNameItem
+// ============================================================================
+
+export interface ComponentNameItemProps {
+  /** Item content */
+  children: React.ReactNode;
+  /** Additional CSS classes */
+  className?: string;
+}
+
+/**
+ * Individual item within ComponentName.
+ */
+export function ComponentNameItem({
+  children,
+  className = '',
+}: ComponentNameItemProps) {
+  return (
+    <div className={`component-item ${className}`.trim()}>
+      {children}
+    </div>
+  );
+}
+
+// ============================================================================
+// SimpleComponentName (Convenience Wrapper)
+// ============================================================================
+
+export interface SimpleComponentNameProps {
+  /** Title text */
+  title?: string;
+  /** Body content */
+  children?: React.ReactNode;
+  /** Visual variant */
+  variant?: ComponentVariant;
+  /** Additional CSS classes */
+  className?: string;
+}
+
+/**
+ * Convenience wrapper for common ComponentName patterns.
+ *
+ * For full control, use the building block components.
+ */
+export function SimpleComponentName({
+  title,
+  children,
+  variant = 'primary',
+  className = '',
+}: SimpleComponentNameProps) {
+  return (
+    <ComponentName variant={variant} className={className}>
+      {title && <ComponentNameItem>{title}</ComponentNameItem>}
+      {children}
+    </ComponentName>
+  );
+}
 
 export default ComponentName;
 ```
@@ -49,16 +156,56 @@ export default ComponentName;
 
 ```tsx
 import type { Meta, StoryObj } from '@storybook/react';
-import ComponentName from './ComponentName';
+import { action } from 'storybook/actions';
+import {
+  ComponentName,
+  ComponentNameItem,
+  SimpleComponentName,
+} from './ComponentName';
 import type { ComponentNameProps } from './ComponentName';
 
-const meta: Meta<ComponentNameProps> = {
-  title: 'Bootstrap/ComponentName',  // or 'Custom/ComponentName'
+const meta: Meta<typeof ComponentName> = {
+  title: 'Bootstrap/ComponentName',
   component: ComponentName,
+  tags: ['autodocs'],  // Required for automatic documentation
+  parameters: {
+    docs: {
+      description: {
+        component: `
+Description of the component and its purpose.
+
+## Building Block Components
+
+- **ComponentName** - Main container
+- **ComponentNameItem** - Individual item
+- **SimpleComponentName** - Convenience wrapper
+        `,
+      },
+    },
+  },
   argTypes: {
-    propName: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      description: 'Visual variant',
+      table: {
+        type: { summary: 'ComponentVariant' },
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    className: {
       control: 'text',
-      description: 'Prop description',
+      description: 'Additional CSS classes',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    children: {
+      control: false,
+      description: 'Component content',
+      table: {
+        type: { summary: 'React.ReactNode' },
+      },
     },
   },
 };
@@ -66,53 +213,90 @@ const meta: Meta<ComponentNameProps> = {
 export default meta;
 type Story = StoryObj<ComponentNameProps>;
 
+// ============================================================================
+// Basic Examples
+// ============================================================================
+
+/**
+ * Default component example.
+ */
 export const Default: Story = {
-  args: {
-    propName: 'example',
-    children: 'Example content',
+  render: () => (
+    <ComponentName>
+      <ComponentNameItem>Item 1</ComponentNameItem>
+      <ComponentNameItem>Item 2</ComponentNameItem>
+    </ComponentName>
+  ),
+};
+
+/**
+ * All available variants.
+ */
+export const AllVariants: Story = {
+  render: () => (
+    <div className="d-flex flex-column gap-2">
+      {(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as const).map((variant) => (
+        <ComponentName key={variant} variant={variant}>
+          <ComponentNameItem>{variant} variant</ComponentNameItem>
+        </ComponentName>
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All eight contextual variants.',
+      },
+    },
   },
 };
 
-export const Variant: Story = {
-  args: {
-    propName: 'variant',
-    children: 'Variant content',
+// ============================================================================
+// SimpleComponentName
+// ============================================================================
+
+/**
+ * SimpleComponentName convenience wrapper.
+ */
+export const Simple: Story = {
+  render: () => (
+    <SimpleComponentName title="Simple Title" variant="success">
+      Additional content here
+    </SimpleComponentName>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use SimpleComponentName for common patterns without building blocks.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// With Events
+// ============================================================================
+
+/**
+ * Component with event callbacks.
+ */
+export const WithEvents: Story = {
+  render: () => (
+    <ComponentName onSomeEvent={action('someEvent')}>
+      <ComponentNameItem>Click to trigger event</ComponentNameItem>
+    </ComponentName>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates event callbacks. Check the Actions panel.',
+      },
+    },
   },
 };
 ```
 
-### 3. MDX Documentation (`ComponentName.docs.mdx`)
-
-```mdx
-import { Meta, Canvas, Controls } from '@storybook/blocks';
-import * as ComponentNameStories from './ComponentName.stories';
-
-<Meta of={ComponentNameStories} />
-
-# Component Name
-
-Brief one-line description of the component.
-
-## Overview
-
-Detailed explanation of what the component does, when to use it, and any important notes.
-
-## Examples
-
-### Default
-
-<Canvas of={ComponentNameStories.Default} />
-
-### Variant Example
-
-<Canvas of={ComponentNameStories.Variant} />
-
-## Props
-
-<Controls of={ComponentNameStories.Default} />
-```
-
-### 4. SCSS Variables (`_variables.scss`)
+### 3. SCSS Variables (`_variables.scss`)
 
 ```scss
 // ComponentName Variables
@@ -138,36 +322,46 @@ After creating `_variables.scss`, import it in `src/styles/bootstrap-custom.scss
 
 ```scss
 // Component-level customizations
-@import '../components/Accordion/variables';
-@import '../components/Alert/variables';
-@import '../components/ComponentName/variables';  // Add your new component
+@import '../bootstrap/Accordion/variables';
+@import '../bootstrap/Alert/variables';
+@import '../bootstrap/ComponentName/variables';  // Add your new component
 ```
 
 ## Best Practices
 
 ### Component Implementation
 
-1. **Use TypeScript interfaces** - Define clear prop types with JSDoc comments
-2. **Export both named and default** - `export const Component` and `export default Component`
-3. **Provide sensible defaults** - Use default parameters for optional props
-4. **Support className prop** - Allow custom CSS classes for flexibility
-5. **Document all props** - Add JSDoc comments for Storybook's Controls panel
+1. **Use function components** - `export function Component()` not `const Component: React.FC`
+2. **Group by section** - Use comment headers to organize: Types, Main, Building Blocks, Simple
+3. **Export everything** - Named exports for all components and types
+4. **Support className prop** - Allow custom CSS classes on every component
+5. **Document with JSDoc** - Add `@example` blocks showing usage
+6. **Use `as` prop** - For polymorphic elements (headings, buttons, etc.)
 
 ### Storybook Stories
 
-1. **Remove autodocs tag** - We use custom MDX documentation
-2. **Create multiple stories** - Show different variants and use cases
-3. **Use descriptive names** - Story names should clearly indicate what they demonstrate
-4. **Add argTypes** - Provide controls and descriptions for all props
-5. **Use actions** - Log events with `action: 'eventName'` for callbacks
+1. **Include `tags: ['autodocs']`** - Required for automatic documentation
+2. **Add `parameters.docs.description.component`** - Describe all building blocks
+3. **Use section comments** - Organize stories into logical groups
+4. **Import from `storybook/actions`** - Not `@storybook/addon-actions`
+5. **Show all variants** - Create an "AllVariants" story mapping over options
+6. **Demonstrate building blocks** - Show both composition and simple patterns
 
-### MDX Documentation
+### Props Documentation (argTypes)
 
-1. **Import from .stories.tsx** - Use `import * as Stories from './Component.stories'`
-2. **Use Meta of={Stories}** - This merges the stories with the docs
-3. **Include overview** - Explain what the component does and when to use it
-4. **Show examples** - Use `<Canvas>` to display live, interactive examples
-5. **Add Props table** - Use `<Controls>` to auto-generate props documentation
+```tsx
+argTypes: {
+  propName: {
+    control: 'select',           // or 'text', 'boolean', 'number', false
+    options: ['a', 'b', 'c'],    // for select controls
+    description: 'What this prop does',
+    table: {
+      type: { summary: 'TypeName' },
+      defaultValue: { summary: 'defaultValue' },
+    },
+  },
+}
+```
 
 ### SCSS Variables
 
@@ -175,16 +369,12 @@ After creating `_variables.scss`, import it in `src/styles/bootstrap-custom.scss
 2. **Provide !default flag** - Allow variables to be overridden
 3. **Follow naming convention** - Use `$component-property` pattern
 4. **Group logically** - Colors, spacing, borders, typography, etc.
-5. **Document purpose** - Add comments explaining what each variable controls
 
 ## Component Categories
 
-Organize components into logical categories in Storybook:
+Components are organized under `src/bootstrap/`:
 
-- **Bootstrap/** - Components that wrap or extend Bootstrap components
-- **Custom/** - Completely custom components built from scratch
-- **Layout/** - Layout-related components (Grid, Container, etc.)
-- **Forms/** - Form inputs and related components
+- **Bootstrap/** - Components wrapping or extending Bootstrap (Accordion, Alert, Button, Card, etc.)
 
 ## Testing Checklist
 
@@ -192,31 +382,29 @@ Before committing a new component:
 
 - [ ] Component renders without errors
 - [ ] All stories display correctly in Storybook
-- [ ] MDX documentation shows properly with live examples
-- [ ] Props table is accurate and complete
+- [ ] `tags: ['autodocs']` is included in meta
+- [ ] All building blocks are exported and documented
+- [ ] Props have proper argTypes with descriptions
 - [ ] SCSS variables are imported in `bootstrap-custom.scss`
 - [ ] Theme switching works (light/dark mode)
-- [ ] TypeScript types are correct
-- [ ] Component is accessible (check with Storybook's a11y addon)
-- [ ] README is updated if necessary
+- [ ] TypeScript has no errors
+- [ ] className prop works on all components
 
-## Example: Adding a Badge Component
+## Example Components
 
-Here's a complete example of adding a new Badge component:
+Reference these completed components for patterns:
 
-1. Create `src/components/Badge/Badge.tsx`
-2. Create `src/components/Badge/Badge.stories.tsx`
-3. Create `src/components/Badge/Badge.docs.mdx`
-4. Create `src/components/Badge/_variables.scss`
-5. Import in `src/styles/bootstrap-custom.scss`:
-   ```scss
-   @import '../components/Badge/variables';
-   ```
-6. Run Storybook and verify it appears under "Bootstrap/Badge"
-7. Test all variants and theme switching
+| Component | Pattern Highlights |
+|-----------|-------------------|
+| **Accordion** | Compound components, `useId` hook, `alwaysOpen` prop |
+| **Alert** | Bootstrap JS events, `AlertHeading`/`AlertLink` blocks |
+| **Badge** | `PositionedBadge`, `as` prop for polymorphism |
+| **Button** | `IconButton`/`LinkButton`/`CloseButton`, loading state |
+| **ButtonGroup** | `ToggleButtonGroup` with checkbox/radio, controlled mode |
+| **Card** | Full building blocks suite, `SimpleCard` wrapper |
 
 ## Resources
 
-- [Storybook MDX Documentation](https://storybook.js.org/docs/writing-docs/mdx)
+- [Storybook Autodocs](https://storybook.js.org/docs/writing-docs/autodocs)
 - [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/)
-- [Project Theming Guide](../THEMING.md)
+- [Project Theming Guide](./THEMING.md)
