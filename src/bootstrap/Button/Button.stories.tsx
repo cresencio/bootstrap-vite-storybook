@@ -1,15 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from './Button';
-import type { ButtonProps } from './Button';
+import { Button, LinkButton, IconButton, CloseButton } from './Button';
 
-const meta: Meta<ButtonProps> = {
+const meta: Meta<typeof Button> = {
   title: 'Bootstrap/Button',
   component: Button,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: 'Bootstrap buttons with support for multiple sizes, states, and variants. Includes support for solid, outline, and link styles.',
+        component: `Bootstrap buttons with support for multiple sizes, states, and variants.
+
+## Components
+
+- **Button** - Main button component with loading state support
+- **LinkButton** - Anchor element styled as a button
+- **IconButton** - Button with icon and accessible label
+- **CloseButton** - Bootstrap close/dismiss button
+
+## Features
+
+- 9 color variants + outline versions
+- 3 sizes (sm, md, lg)
+- Loading state with spinner
+- Active/toggle state
+- Polymorphic (button, link)
+- Icon button support`,
       },
     },
   },
@@ -36,7 +51,13 @@ const meta: Meta<ButtonProps> = {
       control: 'boolean',
       description: 'Render as outline style',
       table: {
-        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    active: {
+      control: 'boolean',
+      description: 'Active/pressed state',
+      table: {
         defaultValue: { summary: 'false' },
       },
     },
@@ -44,22 +65,48 @@ const meta: Meta<ButtonProps> = {
       control: 'boolean',
       description: 'Disabled state',
       table: {
-        type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
       },
     },
-    onClick: {
-      action: 'clicked',
-      description: 'Button click handler',
+    loading: {
+      control: 'boolean',
+      description: 'Loading state with spinner',
       table: {
-        type: { summary: '(event: MouseEvent) => void' },
+        defaultValue: { summary: 'false' },
       },
+    },
+    loadingText: {
+      control: 'text',
+      description: 'Text to show during loading state',
+    },
+    toggle: {
+      control: 'boolean',
+      description: 'Enable toggle button behavior',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['button', 'submit', 'reset'],
+      description: 'Button type attribute',
+      table: {
+        defaultValue: { summary: 'button' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes',
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<typeof Button>;
+
+// ============================================================================
+// Basic Variants
+// ============================================================================
 
 export const Primary: Story = {
   args: {
@@ -124,9 +171,13 @@ export const Link: Story = {
   },
 };
 
+// ============================================================================
+// All Variants
+// ============================================================================
+
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+    <div className="d-flex gap-2 flex-wrap">
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="success">Success</Button>
@@ -142,7 +193,7 @@ export const AllVariants: Story = {
 
 export const OutlineButtons: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+    <div className="d-flex gap-2 flex-wrap">
       <Button variant="primary" outline>Primary</Button>
       <Button variant="secondary" outline>Secondary</Button>
       <Button variant="success" outline>Success</Button>
@@ -162,9 +213,13 @@ export const OutlineButtons: Story = {
   },
 };
 
+// ============================================================================
+// Sizes
+// ============================================================================
+
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div className="d-flex gap-2 align-items-center flex-wrap">
       <Button variant="primary" size="lg">Large</Button>
       <Button variant="primary" size="md">Default</Button>
       <Button variant="primary" size="sm">Small</Button>
@@ -179,177 +234,58 @@ export const Sizes: Story = {
   },
 };
 
-export const CustomSize: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-      <Button 
-        variant="primary"
-        style={{
-          '--bs-btn-padding-y': '.25rem',
-          '--bs-btn-padding-x': '.5rem',
-          '--bs-btn-font-size': '.75rem',
-        } as React.CSSProperties}
-      >
-        Custom button
-      </Button>
-      <Button variant="primary" size="sm">Small button</Button>
-      <Button 
-        variant="secondary"
-        style={{
-          '--bs-btn-padding-y': '.75rem',
-          '--bs-btn-padding-x': '1.5rem',
-          '--bs-btn-font-size': '1.25rem',
-        } as React.CSSProperties}
-      >
-        Extra large
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Create custom button sizes by setting CSS variables: `--bs-btn-padding-y`, `--bs-btn-padding-x`, and `--bs-btn-font-size`.',
-      },
-    },
-  },
-};
+// ============================================================================
+// States
+// ============================================================================
 
 export const DisabledState: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-      <Button variant="primary" disabled>Primary button</Button>
-      <Button variant="secondary" disabled>Button</Button>
-      <Button variant="primary" outline disabled>Primary button</Button>
-      <Button variant="secondary" outline disabled>Button</Button>
+    <div className="d-flex gap-2 flex-wrap">
+      <Button variant="primary" disabled>Primary</Button>
+      <Button variant="secondary" disabled>Secondary</Button>
+      <Button variant="primary" outline disabled>Outline</Button>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Disabled buttons have reduced opacity and pointer-events disabled. Works with both solid and outline button styles.',
+        story: 'Disabled buttons have reduced opacity and pointer-events disabled.',
       },
     },
   },
 };
 
-export const DisabledLinkButtons: Story = {
+export const ActiveState: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-      <a className="btn btn-primary disabled" role="button" aria-disabled="true">Primary link</a>
-      <a className="btn btn-secondary disabled" role="button" aria-disabled="true">Link</a>
+    <div className="d-flex gap-2 flex-wrap">
+      <Button variant="primary" active>Active</Button>
+      <Button variant="secondary" active>Active</Button>
+      <Button variant="primary" outline active>Active Outline</Button>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Disabled buttons using `<a>` elements behave differently: they don\'t support the `disabled` attribute, so you must add the `.disabled` class. Include `aria-disabled="true"` for accessibility and omit the `href` attribute. Pointer events are automatically disabled.',
+        story: 'Use the `active` prop to show pressed/active state.',
       },
     },
   },
 };
 
-export const DisabledLinkWithHref: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-      <a href="#" className="btn btn-primary disabled" tabIndex={-1} role="button" aria-disabled="true">Primary link</a>
-      <a href="#" className="btn btn-secondary disabled" tabIndex={-1} role="button" aria-disabled="true">Link</a>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: '**Link functionality caveat:** If you must keep the `href` attribute on a disabled link, the `.disabled` class uses `pointer-events: none` to disable link functionality. However, keyboard navigation remains unaffected in all browsers. To fully disable these links, add `tabindex="-1"` to prevent keyboard focus and use custom JavaScript to disable their functionality altogether.',
-      },
-    },
-  },
-};
+// ============================================================================
+// Loading State
+// ============================================================================
 
-export const BlockButton: Story = {
+export const LoadingState: Story = {
   render: () => (
-    <div className="d-grid gap-2">
-      <button className="btn btn-primary" type="button">Button</button>
-      <button className="btn btn-primary" type="button">Button</button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Create responsive stacks of full-width "block buttons" using Bootstrap\'s display and gap utilities.',
-      },
-    },
-  },
-};
-
-export const ResponsiveBlockButton: Story = {
-  render: () => (
-    <div className="d-grid gap-2 d-md-block">
-      <button className="btn btn-primary" type="button">Button</button>
-      <button className="btn btn-primary" type="button">Button</button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Create a responsive variation with vertically stacked buttons until the `md` breakpoint, where `d-md-block` replaces the `d-grid` class, nullifying the `gap-2` utility. Resize your browser to see them change.',
-      },
-    },
-  },
-};
-
-export const BlockButtonWithWidth: Story = {
-  render: () => (
-    <div className="d-grid gap-2 col-6 mx-auto">
-      <button className="btn btn-primary" type="button">Button</button>
-      <button className="btn btn-primary" type="button">Button</button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Adjust the width of block buttons with grid column width classes. For example, `col-6` creates a half-width block button. Use `mx-auto` to center it horizontally.',
-      },
-    },
-  },
-};
-
-export const BlockButtonWithAlignment: Story = {
-  render: () => (
-    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button className="btn btn-primary me-md-2" type="button">Button</button>
-      <button className="btn btn-primary" type="button">Button</button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use flex utilities to adjust button alignment when horizontal. This example combines responsive display (`d-md-flex`), justification (`justify-content-md-end`), and margin utilities (`me-md-2`) to right-align buttons when they\'re no longer stacked.',
-      },
-    },
-  },
-};
-
-export const WithIcons: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-      <Button variant="primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-download me-2" viewBox="0 0 16 16">
-          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-        </svg>
-        Download
+    <div className="d-flex gap-2 flex-wrap">
+      <Button variant="primary" loading>
+        Save Changes
       </Button>
-      <Button variant="success">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle me-2" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-          <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-        </svg>
-        Success
+      <Button variant="success" loading loadingText="Saving...">
+        Save
       </Button>
-      <Button variant="danger" outline>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash me-2" viewBox="0 0 16 16">
-          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-          <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-        </svg>
+      <Button variant="danger" loading loadingText="Deleting...">
         Delete
       </Button>
     </div>
@@ -357,94 +293,236 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Combine buttons with icons for enhanced visual communication.',
+        story: 'Use `loading` prop to show a spinner and disable the button. Optionally provide `loadingText` for custom loading text.',
       },
     },
   },
 };
 
-export const NoTextWrap: Story = {
+export const LoadingSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column', maxWidth: '200px' }}>
-      <Button variant="primary">
-        This button text wraps normally
+    <div className="d-flex gap-2 align-items-center flex-wrap">
+      <Button variant="primary" size="lg" loading>
+        Large
       </Button>
-      <Button variant="primary" className="text-nowrap">
-        This button text does not wrap
+      <Button variant="primary" loading>
+        Default
+      </Button>
+      <Button variant="primary" size="sm" loading>
+        Small
       </Button>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use the `text-nowrap` class to prevent button text from wrapping. You can also set `$btn-white-space: nowrap` in your SCSS to disable text wrapping for all buttons.',
-      },
-    },
-  },
 };
 
-export const ButtonTags: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-      <a className="btn btn-primary" href="#" role="button">Link</a>
-      <button className="btn btn-primary" type="submit">Button</button>
-      <input className="btn btn-primary" type="button" value="Input" />
-      <input className="btn btn-primary" type="submit" value="Submit" />
-      <input className="btn btn-primary" type="reset" value="Reset" />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'The `.btn` classes are designed to be used with the `<button>` element, but can also be used on `<a>` or `<input>` elements. When using button classes on `<a>` elements that trigger in-page functionality (like collapsing content), add `role="button"` to convey their purpose to assistive technologies.',
-      },
-    },
-  },
-};
+// ============================================================================
+// Toggle Buttons
+// ============================================================================
 
 export const ToggleButtons: Story = {
   render: () => (
-    <>
-      <p className="d-inline-flex gap-1">
-        <button type="button" className="btn" data-bs-toggle="button">Toggle button</button>
-        <button type="button" className="btn active" data-bs-toggle="button" aria-pressed="true">Active toggle button</button>
-        <button type="button" className="btn" disabled data-bs-toggle="button">Disabled toggle button</button>
-      </p>
-      <p className="d-inline-flex gap-1">
-        <button type="button" className="btn btn-primary" data-bs-toggle="button">Toggle button</button>
-        <button type="button" className="btn btn-primary active" data-bs-toggle="button" aria-pressed="true">Active toggle button</button>
-        <button type="button" className="btn btn-primary" disabled data-bs-toggle="button">Disabled toggle button</button>
-      </p>
-    </>
+    <div className="d-flex gap-2 flex-wrap">
+      <Button toggle>Toggle button</Button>
+      <Button variant="primary" toggle>Toggle button</Button>
+      <Button variant="primary" toggle active>Active toggle</Button>
+      <Button variant="primary" toggle disabled>Disabled toggle</Button>
+    </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: '**Button plugin:** Create simple on/off toggle buttons using `data-bs-toggle="button"`. These toggle buttons are visually identical to checkbox toggles but are announced differently by screen readers as "button"/"button pressed" rather than "checked"/"not checked". For pre-toggled buttons, add the `.active` class and `aria-pressed="true"` to ensure proper accessibility.',
+        story: 'Use `toggle` prop for on/off toggle behavior with `data-bs-toggle="button"`. Pre-toggle with `active` prop.',
       },
     },
   },
 };
 
-export const ToggleLinks: Story = {
+// ============================================================================
+// LinkButton
+// ============================================================================
+
+export const LinkButtons: Story = {
   render: () => (
-    <>
-      <p className="d-inline-flex gap-1">
-        <a href="#" className="btn" role="button" data-bs-toggle="button">Toggle link</a>
-        <a href="#" className="btn active" role="button" data-bs-toggle="button" aria-pressed="true">Active toggle link</a>
-        <a className="btn disabled" aria-disabled="true" role="button" data-bs-toggle="button">Disabled toggle link</a>
-      </p>
-      <p className="d-inline-flex gap-1">
-        <a href="#" className="btn btn-primary" role="button" data-bs-toggle="button">Toggle link</a>
-        <a href="#" className="btn btn-primary active" role="button" data-bs-toggle="button" aria-pressed="true">Active toggle link</a>
-        <a className="btn btn-primary disabled" aria-disabled="true" role="button" data-bs-toggle="button">Disabled toggle link</a>
-      </p>
-    </>
+    <div className="d-flex gap-2 flex-wrap">
+      <LinkButton href="#" variant="primary">Primary Link</LinkButton>
+      <LinkButton href="#" variant="secondary">Secondary Link</LinkButton>
+      <LinkButton href="#" variant="success" outline>Outline Link</LinkButton>
+      <LinkButton variant="danger" disabled>Disabled Link</LinkButton>
+    </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Toggle functionality can also be applied to anchor links. Note that disabled toggle links omit the `href` attribute and include `aria-disabled="true"`.',
+        story: '`LinkButton` renders an anchor element styled as a button. Use when navigation is the primary action.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// IconButton
+// ============================================================================
+
+const DownloadIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+  </svg>
+);
+
+const TrashIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+    <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+  </svg>
+);
+
+const PlusIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+  </svg>
+);
+
+export const IconButtons: Story = {
+  render: () => (
+    <div className="d-flex gap-2 flex-wrap align-items-center">
+      <IconButton icon={<DownloadIcon />} label="Download" variant="primary" />
+      <IconButton icon={<TrashIcon />} label="Delete" variant="danger" outline />
+      <IconButton icon={<PlusIcon />} label="Add" iconPosition="end" variant="success" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '`IconButton` combines an icon with a text label. Use `iconPosition` to place icon at start or end.',
+      },
+    },
+  },
+};
+
+export const IconOnlyButtons: Story = {
+  render: () => (
+    <div className="d-flex gap-2 flex-wrap">
+      <IconButton icon={<DownloadIcon />} label="Download" variant="primary" iconOnly />
+      <IconButton icon={<TrashIcon />} label="Delete" variant="danger" iconOnly />
+      <IconButton icon={<PlusIcon />} label="Add" variant="success" iconOnly />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `iconOnly` for icon-only buttons. The label is visually hidden but accessible to screen readers.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// CloseButton
+// ============================================================================
+
+export const CloseButtons: Story = {
+  render: () => (
+    <div className="d-flex gap-3 align-items-center">
+      <CloseButton />
+      <CloseButton disabled />
+      <div className="bg-dark p-3">
+        <CloseButton white />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '`CloseButton` for dismissing content like modals and alerts. Use `white` variant on dark backgrounds.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Block Buttons
+// ============================================================================
+
+export const BlockButtons: Story = {
+  render: () => (
+    <div className="d-grid gap-2">
+      <Button variant="primary">Block Button</Button>
+      <Button variant="secondary">Block Button</Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Create full-width block buttons using Bootstrap\'s `d-grid` utility class on the parent.',
+      },
+    },
+  },
+};
+
+export const ResponsiveBlockButtons: Story = {
+  render: () => (
+    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+      <Button variant="primary">Button</Button>
+      <Button variant="secondary">Button</Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use responsive utilities to stack buttons on small screens and align horizontally on larger screens.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// With Icons (Inline)
+// ============================================================================
+
+export const WithInlineIcons: Story = {
+  render: () => (
+    <div className="d-flex gap-2 flex-wrap">
+      <Button variant="primary">
+        <DownloadIcon /> <span className="ms-2">Download</span>
+      </Button>
+      <Button variant="success">
+        <span className="me-2">Next</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+      </Button>
+      <Button variant="danger" outline>
+        <TrashIcon /> <span className="ms-2">Delete</span>
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'You can also add icons directly as children for full control over layout.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Button Tags
+// ============================================================================
+
+export const ButtonTags: Story = {
+  render: () => (
+    <div className="d-flex gap-2 flex-wrap align-items-center">
+      <LinkButton href="#" variant="primary">Link</LinkButton>
+      <Button type="submit" variant="primary">Submit</Button>
+      <Button type="reset" variant="secondary">Reset</Button>
+      <input className="btn btn-primary" type="button" value="Input" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Buttons can be rendered as different HTML elements. Use `LinkButton` for anchors, `Button` for buttons.',
       },
     },
   },
