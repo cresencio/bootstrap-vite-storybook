@@ -22,7 +22,8 @@
 **Components missing state variables:** ⚠️
 - [x] **Button** (HIGH) - Added hover/active shade amounts and focus box-shadow
 - [x] **Breadcrumb** (MEDIUM) - Added link-color and link-hover-color
-- [ ] Alert, Badge (LOW) - Generally static, but could add if needed
+- [x] **Alert** (LOW) - Added link-hover shade amount, close button focus/hover opacity
+- [x] **Badge** (LOW) - Added hover-scale, focus-box-shadow, transition for interactive badges
 
 **Non-interactive components (no states needed):** ✅
 - Card, Modal, Offcanvas, Collapse, Placeholder, Popover, Progress, Scrollspy, Spinner, Tabs, Toast, Tooltip, ButtonGroup

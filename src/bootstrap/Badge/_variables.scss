@@ -17,3 +17,9 @@ $badge-color: $token-color-white !default;
 // Badge border radius
 $badge-border-radius: $token-border-radius-sm !default;
 $badge-pill-border-radius: 10rem !default;
+
+// Badge link/button states (for clickable badges)
+// These apply when badges are rendered as <a> or <button> elements
+$badge-hover-scale: 1.05 !default;
+$badge-focus-box-shadow: 0 0 0 0.2rem rgba(var(--#{$prefix}primary-rgb), 0.25) !default;
+$badge-transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;

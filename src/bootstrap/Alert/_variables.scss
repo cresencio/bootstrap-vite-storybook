@@ -20,3 +20,12 @@
 
 // Dismissible
 // $alert-dismissible-padding-r: $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
+
+// Alert link hover state
+$alert-link-hover-color-shade-amount: 20% !default;
+
+// Alert close button states (controlled via btn-close variables in Bootstrap)
+// These affect the dismiss button's appearance
+$btn-close-focus-shadow: 0 0 0 0.25rem rgba(var(--#{$prefix}primary-rgb), 0.25) !default;
+$btn-close-hover-opacity: 0.75 !default;
+$btn-close-focus-opacity: 1 !default;
