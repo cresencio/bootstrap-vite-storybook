@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Breadcrumb Variables
 // Override Bootstrap breadcrumb variables
 
@@ -27,5 +29,5 @@ $breadcrumb-divider-flipped: $breadcrumb-divider !default;
 $breadcrumb-border-radius: null !default;
 
 // Breadcrumb link colors
-$breadcrumb-link-color: $token-color-primary !default;
-$breadcrumb-link-hover-color: darken($token-color-primary, 15%) !default;
+$breadcrumb-link-color: $token-color-brand-primary !default;
+$breadcrumb-link-hover-color: color.adjust($token-color-brand-primary, $lightness: -15%) !default;

@@ -26,6 +26,6 @@ $alert-link-hover-color-shade-amount: 20% !default;
 
 // Alert close button states (controlled via btn-close variables in Bootstrap)
 // These affect the dismiss button's appearance
-$btn-close-focus-shadow: 0 0 0 0.25rem rgba(var(--#{$prefix}primary-rgb), 0.25) !default;
+$btn-close-focus-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25) !default;
 $btn-close-hover-opacity: 0.75 !default;
 $btn-close-focus-opacity: 1 !default;
