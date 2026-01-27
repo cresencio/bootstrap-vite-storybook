@@ -1,83 +1,81 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Card from './Card';
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardText,
+  CardFooter,
+  CardImg,
+  CardImgOverlay,
+  CardLink,
+  CardGroup,
+  SimpleCard,
+} from './Card';
 import type { CardProps } from './Card';
 
-const meta: Meta<CardProps> = {
+const meta: Meta<typeof Card> = {
   title: 'Bootstrap/Card',
   component: Card,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: "Bootstrap's cards provide a flexible and extensible content container with multiple variants and options.",
+        component: `Bootstrap's cards provide a flexible and extensible content container with multiple variants and options.
+
+## Building Block Components
+
+- **Card** - Main container component
+- **CardHeader** - Optional header section
+- **CardBody** - Primary content container
+- **CardTitle** - Card title element
+- **CardSubtitle** - Card subtitle element
+- **CardText** - Text paragraph
+- **CardFooter** - Optional footer section
+- **CardImg** - Image component with position support
+- **CardImgOverlay** - Content overlay on images
+- **CardLink** - Styled link for cards
+- **CardGroup** - Group multiple cards
+- **SimpleCard** - Convenience wrapper for common patterns`,
       },
     },
   },
   argTypes: {
-    title: {
-      control: 'text',
-      description: 'Card title',
+    children: {
+      control: false,
+      description: 'Card content - use building block components',
       table: {
-        type: { summary: 'string' },
-      },
-    },
-    subtitle: {
-      control: 'text',
-      description: 'Card subtitle',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    text: {
-      control: 'text',
-      description: 'Card body text content',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    imageSrc: {
-      control: 'text',
-      description: 'Image source URL',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    imageAlt: {
-      control: 'text',
-      description: 'Image alt text',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    imagePosition: {
-      control: 'select',
-      options: ['top', 'bottom'],
-      description: 'Image position',
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: 'top' },
+        type: { summary: 'React.ReactNode' },
       },
     },
     bg: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
-      description: 'Background variant',
+      options: [undefined, 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      description: 'Background variant - uses text-bg-{color} helper',
       table: {
-        type: { summary: 'string' },
+        type: { summary: 'CardVariant' },
       },
     },
     textColor: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', 'muted'],
+      options: [undefined, 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', 'muted', 'body', 'body-secondary'],
       description: 'Text color variant',
       table: {
-        type: { summary: 'string' },
+        type: { summary: 'CardTextColor' },
       },
     },
     border: {
       control: 'select',
-      options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
+      options: [undefined, 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'],
       description: 'Border variant',
+      table: {
+        type: { summary: 'CardVariant' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'Additional CSS classes',
       table: {
         type: { summary: 'string' },
       },
@@ -88,94 +86,392 @@ const meta: Meta<CardProps> = {
 export default meta;
 type Story = StoryObj<CardProps>;
 
+// ============================================================================
+// Basic Examples
+// ============================================================================
+
 /**
- * Basic card with mixed content and a fixed width. Cards have no fixed width to start, so they'll naturally fill the full width of its parent element.
+ * Basic card with building block components. Cards have no fixed width by default,
+ * so they naturally fill the full width of their parent element.
  */
 export const Example: Story = {
-  args: {
-    title: 'Card title',
-    text: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    imageSrc: '/src/assets/placeholders/card-placeholder.svg',
-    imageAlt: 'Card image cap',
-  },
   render: (args) => (
     <Card {...args} style={{ width: '18rem' }}>
-      <a href="#" className="btn btn-primary">Go somewhere</a>
+      <CardImg src="/src/assets/placeholders/card-placeholder.svg" alt="Card image cap" />
+      <CardBody>
+        <CardTitle>Card title</CardTitle>
+        <CardText>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+        <a href="#" className="btn btn-primary">Go somewhere</a>
+      </CardBody>
     </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'A basic card with an image, title, text, and a button. Cards are built with as little markup and styles as possible, but still manage to deliver a ton of control and customization.',
+        story: 'A basic card with an image, title, text, and a button using building block components. Cards are built with as little markup and styles as possible, but still manage to deliver a ton of control and customization.',
       },
     },
   },
 };
 
 /**
- * The building block of a card is the `.card-body`. Use it whenever you need a padded section within a card.
+ * The CardBody component is the primary content container within a card.
  */
 export const Body: Story = {
   render: () => (
-    <div className="card">
-      <div className="card-body">
-        This is some text within a card body.
-      </div>
-    </div>
+    <Card>
+      <CardBody>This is some text within a card body.</CardBody>
+    </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'The building block of a card is the `.card-body`. Use it whenever you need a padded section within a card.',
+        story: 'The CardBody component is the building block of a card. Use it whenever you need a padded section within a card.',
       },
     },
   },
 };
 
 /**
- * Card titles are used by adding `.card-title` to a `<h*>` tag. Links are added by using `.card-link` on `<a>` tags. Subtitles use `.card-subtitle` on a `<h*>` tag.
+ * Card titles, subtitles, text, and links using building block components.
  */
 export const TitlesTextAndLinks: Story = {
   render: () => (
-    <div className="card" style={{ width: '18rem' }}>
-      <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <h6 className="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" className="card-link">Card link</a>
-        <a href="#" className="card-link">Another link</a>
-      </div>
-    </div>
+    <Card style={{ width: '18rem' }}>
+      <CardBody>
+        <CardTitle>Card title</CardTitle>
+        <CardSubtitle>Card subtitle</CardSubtitle>
+        <CardText>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+        <CardLink href="#">Card link</CardLink>
+        <CardLink href="#">Another link</CardLink>
+      </CardBody>
+    </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Card titles are used by adding `.card-title` to a `<h*>` tag. In the same way, links are added and placed next to each other by adding `.card-link` to an `<a>` tag. Subtitles are used by adding a `.card-subtitle` to a `<h*>` tag.',
+        story: 'Use CardTitle, CardSubtitle, CardText, and CardLink building blocks to structure your card content with proper styling.',
       },
     },
   },
 };
 
 /**
- * `.card-img-top` places an image to the top of the card. With `.card-text`, text can be added to the card.
+ * CardImg places an image in the card. Use the position prop to control placement.
  */
 export const Images: Story = {
   render: () => (
-    <div className="card" style={{ width: '18rem' }}>
-      <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-      <div className="card-body">
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <Card style={{ width: '18rem' }}>
+      <CardImg src="/src/assets/placeholders/card-placeholder.svg" position="top" />
+      <CardBody>
+        <CardText>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+      </CardBody>
+    </Card>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use CardImg with position="top" or position="bottom" to place images at the top or bottom of the card.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Header and Footer
+// ============================================================================
+
+/**
+ * Add optional header and footer sections to a card.
+ */
+export const HeaderAndFooter: Story = {
+  render: () => (
+    <>
+      <Card className="mb-3">
+        <CardHeader>Featured</CardHeader>
+        <CardBody>
+          <CardTitle>Special title treatment</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+      </Card>
+
+      <Card className="mb-3">
+        <CardHeader as="h5">Featured</CardHeader>
+        <CardBody>
+          <CardTitle>Special title treatment</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+      </Card>
+
+      <Card className="text-center">
+        <CardHeader>Featured</CardHeader>
+        <CardBody>
+          <CardTitle>Special title treatment</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+        <CardFooter className="text-body-secondary">2 days ago</CardFooter>
+      </Card>
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use CardHeader and CardFooter to add optional header and footer sections. CardHeader supports an "as" prop to render as different heading elements.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Image Overlays
+// ============================================================================
+
+/**
+ * Turn an image into a card background and overlay your card's text.
+ */
+export const ImageOverlays: Story = {
+  render: () => (
+    <Card bg="dark">
+      <CardImg src="/src/assets/placeholders/card-placeholder.svg" position="overlay" />
+      <CardImgOverlay>
+        <CardTitle>Card title</CardTitle>
+        <CardText>
+          This is a wider card with supporting text below as a natural lead-in to additional content.
+          This content is a little bit longer.
+        </CardText>
+        <CardText><small>Last updated 3 mins ago</small></CardText>
+      </CardImgOverlay>
+    </Card>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use CardImg with position="overlay" and CardImgOverlay to create cards with text overlaid on images. Note that content should not be larger than the height of the image.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Horizontal Card
+// ============================================================================
+
+/**
+ * Using grid utilities, cards can be made horizontal in a mobile-friendly way.
+ */
+export const Horizontal: Story = {
+  render: () => (
+    <Card style={{ maxWidth: '540px' }}>
+      <div className="row g-0">
+        <div className="col-md-4">
+          <img
+            src="/src/assets/placeholders/card-placeholder.svg"
+            className="img-fluid rounded-start"
+            alt="..."
+          />
+        </div>
+        <div className="col-md-8">
+          <CardBody>
+            <CardTitle>Card title</CardTitle>
+            <CardText>
+              This is a wider card with supporting text below as a natural lead-in to additional content.
+              This content is a little bit longer.
+            </CardText>
+            <CardText>
+              <small className="text-body-secondary">Last updated 3 mins ago</small>
+            </CardText>
+          </CardBody>
+        </div>
       </div>
+    </Card>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Using a combination of grid and utility classes, cards can be made horizontal. We remove the grid gutters with `.g-0` and use `.col-md-*` classes to make the card horizontal at the md breakpoint.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Background and Border Variants
+// ============================================================================
+
+/**
+ * Set a background-color with contrasting foreground color using the bg prop.
+ */
+export const BackgroundVariants: Story = {
+  render: () => (
+    <div className="d-flex flex-wrap gap-3">
+      {(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as const).map((variant) => (
+        <Card key={variant} bg={variant} style={{ maxWidth: '18rem' }}>
+          <CardHeader>Header</CardHeader>
+          <CardBody>
+            <CardTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)} card title</CardTitle>
+            <CardText>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </CardText>
+          </CardBody>
+        </Card>
+      ))}
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: '`.card-img-top` and `.card-img-bottom` respectively set the top and bottom corners rounded to match the card\'s borders. With `.card-text`, text can be added to the card.',
+        story: 'Use the `bg` prop to set a background variant. This uses Bootstrap\'s text-bg-{color} helper which automatically pairs background and text colors for proper contrast.',
       },
     },
   },
 };
+
+/**
+ * Use border prop to change just the border-color of a card.
+ */
+export const BorderVariants: Story = {
+  render: () => (
+    <div className="d-flex flex-wrap gap-3">
+      {(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as const).map((variant) => (
+        <Card key={variant} border={variant} style={{ maxWidth: '18rem' }}>
+          <CardHeader>Header</CardHeader>
+          <CardBody className={variant !== 'light' ? `text-${variant}` : ''}>
+            <CardTitle>{variant.charAt(0).toUpperCase() + variant.slice(1)} card title</CardTitle>
+            <CardText>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </CardText>
+          </CardBody>
+        </Card>
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the `border` prop to change just the border color. You can optionally add text color classes to match.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Card Groups
+// ============================================================================
+
+/**
+ * Use CardGroup to render cards as a single attached element with equal dimensions.
+ */
+export const CardGroups: Story = {
+  render: () => (
+    <CardGroup>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This content is a little bit longer.
+          </CardText>
+          <CardText><small className="text-body-secondary">Last updated 3 mins ago</small></CardText>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This card has supporting text below as a natural lead-in to additional content.
+          </CardText>
+          <CardText><small className="text-body-secondary">Last updated 3 mins ago</small></CardText>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This card has even longer content than the first to show that equal height action.
+          </CardText>
+          <CardText><small className="text-body-secondary">Last updated 3 mins ago</small></CardText>
+        </CardBody>
+      </Card>
+    </CardGroup>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use CardGroup to render cards as a single, attached element with equal width and height columns. Card groups use flexbox to create uniform dimensions.',
+      },
+    },
+  },
+};
+
+/**
+ * Card groups with footers automatically align the footer content.
+ */
+export const CardGroupsWithFooter: Story = {
+  render: () => (
+    <CardGroup>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This content is a little bit longer.
+          </CardText>
+        </CardBody>
+        <CardFooter>
+          <small className="text-body-secondary">Last updated 3 mins ago</small>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
+        </CardBody>
+        <CardFooter>
+          <small className="text-body-secondary">Last updated 3 mins ago</small>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This card has even longer content than the first to show that equal height action.
+          </CardText>
+        </CardBody>
+        <CardFooter>
+          <small className="text-body-secondary">Last updated 3 mins ago</small>
+        </CardFooter>
+      </Card>
+    </CardGroup>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'When using CardGroup with CardFooter, the footers will automatically line up due to the flexbox layout.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// List Groups in Cards
+// ============================================================================
 
 /**
  * Create lists of content in a card with a flush list group.
@@ -183,280 +479,91 @@ export const Images: Story = {
 export const ListGroups: Story = {
   render: () => (
     <>
-      <div className="card mb-3" style={{ width: '18rem' }}>
+      <Card className="mb-3" style={{ width: '18rem' }}>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">An item</li>
           <li className="list-group-item">A second item</li>
           <li className="list-group-item">A third item</li>
         </ul>
-      </div>
+      </Card>
 
-      <div className="card mb-3" style={{ width: '18rem' }}>
-        <div className="card-header">
-          Featured
-        </div>
+      <Card className="mb-3" style={{ width: '18rem' }}>
+        <CardHeader>Featured</CardHeader>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">An item</li>
           <li className="list-group-item">A second item</li>
           <li className="list-group-item">A third item</li>
         </ul>
-      </div>
+      </Card>
 
-      <div className="card" style={{ width: '18rem' }}>
+      <Card style={{ width: '18rem' }}>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">An item</li>
           <li className="list-group-item">A second item</li>
           <li className="list-group-item">A third item</li>
         </ul>
-        <div className="card-footer">
-          Card footer
-        </div>
-      </div>
+        <CardFooter>Card footer</CardFooter>
+      </Card>
     </>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Create lists of content in a card with a flush list group. List groups can be used alone, with headers, or with footers.',
+        story: 'Create lists of content in a card with a flush list group. Works great with CardHeader and CardFooter.',
       },
     },
   },
 };
 
+// ============================================================================
+// Kitchen Sink
+// ============================================================================
+
 /**
- * Mix and match multiple content types to create the card you need, or throw everything in there. Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width card.
+ * Mix and match multiple content types to create the card you need.
  */
 export const KitchenSink: Story = {
   render: () => (
-    <div className="card" style={{ width: '18rem' }}>
-      <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-      <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
+    <Card style={{ width: '18rem' }}>
+      <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+      <CardBody>
+        <CardTitle>Card title</CardTitle>
+        <CardText>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+      </CardBody>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">An item</li>
         <li className="list-group-item">A second item</li>
         <li className="list-group-item">A third item</li>
       </ul>
-      <div className="card-body">
-        <a href="#" className="card-link">Card link</a>
-        <a href="#" className="card-link">Another link</a>
-      </div>
-    </div>
+      <CardBody>
+        <CardLink href="#">Card link</CardLink>
+        <CardLink href="#">Another link</CardLink>
+      </CardBody>
+    </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Mix and match multiple content types to create the card you need, or throw everything in there. This example includes an image, title, text, list group, and links.',
+        story: 'Mix and match multiple content types to create the card you need. This example includes an image, title, text, list group, and links.',
       },
     },
   },
 };
 
-/**
- * Add an optional header and/or footer within a card.
- */
-export const HeaderAndFooter: Story = {
-  render: () => (
-    <>
-      <div className="card mb-3">
-        <div className="card-header">
-          Featured
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
-      <div className="card mb-3">
-        <h5 className="card-header">Featured</h5>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
-      <div className="card mb-3">
-        <div className="card-header">
-          Quote
-        </div>
-        <div className="card-body">
-          <figure>
-            <blockquote className="blockquote">
-              <p>A well-known quote, contained in a blockquote element.</p>
-            </blockquote>
-            <figcaption className="blockquote-footer">
-              Someone famous in <cite title="Source Title">Source Title</cite>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <div className="card text-center">
-        <div className="card-header">
-          Featured
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-        <div className="card-footer text-body-secondary">
-          2 days ago
-        </div>
-      </div>
-    </>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Add an optional header and/or footer within a card. Card headers can be styled by adding `.card-header` to `<h*>` elements. Footers can include timestamps or other supplementary information.',
-      },
-    },
-  },
-};
+// ============================================================================
+// Navigation in Cards
+// ============================================================================
 
 /**
- * Using the grid, wrap cards in columns and rows as needed.
- */
-export const UsingGridMarkup: Story = {
-  render: () => (
-    <div className="row">
-      <div className="col-sm-6 mb-3 mb-sm-0">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-6">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" className="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Using the grid, wrap cards in columns and rows as needed. Cards assume no specific width to start, so they\'ll be 100% wide unless otherwise stated.',
-      },
-    },
-  },
-};
-
-/**
- * Use our handful of available sizing utilities to quickly set a card's width.
- */
-export const UsingUtilities: Story = {
-  render: () => (
-    <>
-      <div className="card w-75 mb-3">
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Button</a>
-        </div>
-      </div>
-
-      <div className="card w-50">
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Button</a>
-        </div>
-      </div>
-    </>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use our handful of available sizing utilities to quickly set a card\'s width. Classes like `.w-75` and `.w-50` control the percentage width.',
-      },
-    },
-  },
-};
-
-/**
- * Use custom CSS in your stylesheets or as inline styles to set a width.
- */
-export const UsingCustomCSS: Story = {
-  render: () => (
-    <div className="card" style={{ width: '18rem' }}>
-      <div className="card-body">
-        <h5 className="card-title">Special title treatment</h5>
-        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" className="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use custom CSS in your stylesheets or as inline styles to set a width.',
-      },
-    },
-  },
-};
-
-/**
- * You can quickly change the text alignment of any card—in its entirety or specific parts—with our text align classes.
- */
-export const TextAlignment: Story = {
-  render: () => (
-    <>
-      <div className="card mb-3" style={{ width: '18rem' }}>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
-      <div className="card text-center mb-3" style={{ width: '18rem' }}>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
-      <div className="card text-end" style={{ width: '18rem' }}>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'You can quickly change the text alignment of any card—in its entirety or specific parts—with text align classes: default (left), `.text-center`, and `.text-end`.',
-      },
-    },
-  },
-};
-
-/**
- * Add some navigation to a card's header (or block) with Bootstrap's nav components.
+ * Add navigation to a card's header with Bootstrap's nav components.
  */
 export const Navigation: Story = {
   render: () => (
     <>
-      <div className="card text-center mb-3">
-        <div className="card-header">
+      <Card className="text-center mb-3">
+        <CardHeader>
           <ul className="nav nav-tabs card-header-tabs">
             <li className="nav-item">
               <a className="nav-link active" aria-current="true" href="#">Active</a>
@@ -468,16 +575,16 @@ export const Navigation: Story = {
               <a className="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </CardHeader>
+        <CardBody>
+          <CardTitle>Special title treatment</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
+        </CardBody>
+      </Card>
 
-      <div className="card text-center">
-        <div className="card-header">
+      <Card className="text-center">
+        <CardHeader>
           <ul className="nav nav-pills card-header-pills">
             <li className="nav-item">
               <a className="nav-link active" href="#">Active</a>
@@ -489,636 +596,287 @@ export const Navigation: Story = {
               <a className="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-        </div>
-        <div className="card-body">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </CardHeader>
+        <CardBody>
+          <CardTitle>Special title treatment</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
           <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
+        </CardBody>
+      </Card>
     </>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Add some navigation to a card\'s header with Bootstrap\'s nav components. Use `.card-header-tabs` for tabs or `.card-header-pills` for pills.',
+        story: 'Add navigation to a card\'s header with Bootstrap\'s nav components. Use `.card-header-tabs` for tabs or `.card-header-pills` for pills.',
       },
     },
   },
 };
 
+// ============================================================================
+// Grid Layouts
+// ============================================================================
+
 /**
- * Similar to headers and footers, cards can include top and bottom "image caps"—images at the top or bottom of a card.
+ * Use the Bootstrap grid system to control card layouts.
+ */
+export const GridLayout: Story = {
+  render: () => (
+    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="col">
+          <Card className="h-100">
+            <CardImg src="/src/assets/placeholders/card-placeholder.svg" />
+            <CardBody>
+              <CardTitle>Card title {i}</CardTitle>
+              <CardText>
+                This is a longer card with supporting text below as a natural lead-in to additional content.
+              </CardText>
+            </CardBody>
+            <CardFooter>
+              <small className="text-body-secondary">Last updated 3 mins ago</small>
+            </CardFooter>
+          </Card>
+        </div>
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the Bootstrap grid system with `.row-cols` classes to control how many columns you show per row. Add `.h-100` to cards for equal height.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Text Alignment
+// ============================================================================
+
+/**
+ * Change the text alignment of any card with text align classes.
+ */
+export const TextAlignment: Story = {
+  render: () => (
+    <>
+      <Card className="mb-3" style={{ width: '18rem' }}>
+        <CardBody>
+          <CardTitle>Left aligned (default)</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+      </Card>
+
+      <Card className="text-center mb-3" style={{ width: '18rem' }}>
+        <CardBody>
+          <CardTitle>Center aligned</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+      </Card>
+
+      <Card className="text-end" style={{ width: '18rem' }}>
+        <CardBody>
+          <CardTitle>Right aligned</CardTitle>
+          <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </CardBody>
+      </Card>
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'You can quickly change the text alignment of any card with text align classes: default (left), `.text-center`, and `.text-end`.',
+      },
+    },
+  },
+};
+
+// ============================================================================
+// Image Caps
+// ============================================================================
+
+/**
+ * Cards can include top and bottom image caps.
  */
 export const ImageCaps: Story = {
   render: () => (
     <>
-      <div className="card mb-3">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-bottom" alt="..." />
-      </div>
+      <Card className="mb-3">
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" position="top" />
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This content is a little bit longer.
+          </CardText>
+          <CardText><small className="text-body-secondary">Last updated 3 mins ago</small></CardText>
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardText>
+            This is a wider card with supporting text below as a natural lead-in to additional content.
+            This content is a little bit longer.
+          </CardText>
+          <CardText><small className="text-body-secondary">Last updated 3 mins ago</small></CardText>
+        </CardBody>
+        <CardImg src="/src/assets/placeholders/card-placeholder.svg" position="bottom" />
+      </Card>
     </>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Similar to headers and footers, cards can include top and bottom "image caps"—images at the top or bottom of a card using `.card-img-top` and `.card-img-bottom`.',
+        story: 'Use CardImg with position="top" or position="bottom" to place image caps at the top or bottom of the card.',
       },
     },
   },
 };
 
+// ============================================================================
+// SimpleCard Convenience Component
+// ============================================================================
+
 /**
- * Turn an image into a card background and overlay your card's text. Depending on the image, you may or may not need additional styles or utilities.
+ * SimpleCard provides a convenient wrapper for common card patterns.
  */
-export const ImageOverlays: Story = {
+export const SimpleCardExample: Story = {
   render: () => (
-    <div className="card text-bg-dark">
-      <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img" alt="..." />
-      <div className="card-img-overlay">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p className="card-text"><small>Last updated 3 mins ago</small></p>
+    <div className="row row-cols-1 row-cols-md-3 g-4">
+      <div className="col">
+        <SimpleCard
+          title="Card Title"
+          text="Some quick example text to build on the card title and make up the bulk of the card's content."
+          imageSrc="/src/assets/placeholders/card-placeholder.svg"
+          style={{ width: '100%' }}
+        />
+      </div>
+      <div className="col">
+        <SimpleCard
+          title="With Header & Footer"
+          text="Supporting text below as a natural lead-in to additional content."
+          header="Featured"
+          footer="2 days ago"
+          style={{ width: '100%' }}
+        />
+      </div>
+      <div className="col">
+        <SimpleCard
+          title="With Subtitle"
+          subtitle="Card subtitle"
+          text="Some quick example text to build on the card title and make up the bulk of the card's content."
+          imageSrc="/src/assets/placeholders/card-placeholder.svg"
+          style={{ width: '100%' }}
+        />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Turn an image into a card background and overlay your card\'s text using `.card-img` and `.card-img-overlay`. Note that content should not be larger than the height of the image.',
+        story: 'SimpleCard is a convenience component for common card patterns. For full control, use the building block components instead.',
       },
     },
   },
 };
 
 /**
- * Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way.
+ * SimpleCard with different background variants.
  */
-export const Horizontal: Story = {
-  render: () => (
-    <div className="card mb-3" style={{ maxWidth: '540px' }}>
-      <div className="row g-0">
-        <div className="col-md-4">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="img-fluid rounded-start" alt="..." />
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Using a combination of grid and utility classes, cards can be made horizontal in a mobile-friendly and responsive way. We remove the grid gutters with `.g-0` and use `.col-md-*` classes to make the card horizontal at the md breakpoint.',
-      },
-    },
-  },
-};
-
-/**
- * Set a background-color with contrasting foreground color with our `.text-bg-{color}` helpers.
- */
-export const BackgroundAndColor: Story = {
+export const SimpleCardVariants: Story = {
   render: () => (
     <div className="d-flex flex-wrap gap-3">
-      <div className="card text-bg-primary" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Primary card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-secondary" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Secondary card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-success" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Success card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-danger" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Danger card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-warning" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Warning card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-info" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Info card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-light" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Light card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card text-bg-dark" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Dark card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
+      <SimpleCard
+        title="Primary Card"
+        text="This is a primary card."
+        bg="primary"
+        header="Header"
+        style={{ width: '18rem' }}
+      />
+      <SimpleCard
+        title="Success Card"
+        text="This is a success card."
+        bg="success"
+        header="Header"
+        style={{ width: '18rem' }}
+      />
+      <SimpleCard
+        title="Danger Card"
+        text="This is a danger card."
+        bg="danger"
+        header="Header"
+        style={{ width: '18rem' }}
+      />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Set a background-color with contrasting foreground color with `.text-bg-{color}` helpers. This utility was added in Bootstrap v5.2.0 and automatically pairs background and text colors.\n\n**Accessibility tip:** Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies like screen readers. Please ensure the meaning is obvious from the content itself (e.g., the visible text with a sufficient color contrast) or is included through alternative means, such as additional text hidden with the `.visually-hidden` class.',
+        story: 'SimpleCard supports the same bg, textColor, and border props as the Card component.',
       },
     },
   },
 };
 
+// ============================================================================
+// Title Heading Levels
+// ============================================================================
+
 /**
- * Use border utilities to change just the border-color of a card. Note that you can put `.text-{color}` classes on the parent `.card` or a subset of the card's contents.
+ * CardTitle and CardSubtitle support custom heading levels via the "as" prop.
  */
-export const Border: Story = {
+export const TitleHeadingLevels: Story = {
   render: () => (
-    <div className="d-flex flex-wrap gap-3">
-      <div className="card border-primary" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body text-primary">
-          <h5 className="card-title">Primary card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-secondary" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body text-secondary">
-          <h5 className="card-title">Secondary card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-success" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body text-success">
-          <h5 className="card-title">Success card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-danger" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body text-danger">
-          <h5 className="card-title">Danger card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-warning" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Warning card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-info" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Info card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-light" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Light card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-      <div className="card border-dark" style={{ maxWidth: '18rem' }}>
-        <div className="card-header">Header</div>
-        <div className="card-body">
-          <h5 className="card-title">Dark card title</h5>
-          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
+    <Card style={{ width: '18rem' }}>
+      <CardBody>
+        <CardTitle as="h2">H2 Title</CardTitle>
+        <CardSubtitle as="h3">H3 Subtitle</CardSubtitle>
+        <CardText>
+          Use the "as" prop on CardTitle and CardSubtitle to render different heading levels
+          for proper document outline and accessibility.
+        </CardText>
+      </CardBody>
+    </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Use border utilities to change just the border-color of a card using `.border-{color}` classes. You can optionally add `.text-{color}` classes to the card body or entire card for matching text colors.',
+        story: 'CardTitle defaults to h5 and CardSubtitle defaults to h6, but you can use the "as" prop to render any heading level for proper document structure.',
       },
     },
   },
 };
 
-/**
- * You can also change the borders on the card header and footer as needed, and even remove their background-color with `.bg-transparent`.
- */
-export const MixinsUtilities: Story = {
-  render: () => (
-    <div className="card border-success" style={{ maxWidth: '18rem' }}>
-      <div className="card-header bg-transparent border-success">Header</div>
-      <div className="card-body text-success">
-        <h5 className="card-title">Success card title</h5>
-        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-      <div className="card-footer bg-transparent border-success">Footer</div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'You can also change the borders on the card header and footer as needed, and even remove their background-color with `.bg-transparent`.',
-      },
-    },
-  },
-};
+// ============================================================================
+// Mixin Utilities
+// ============================================================================
 
 /**
- * Use card groups to render cards as a single, attached element with equal width and height columns. Card groups start off stacked and use `display: flex;` to become attached with uniform dimensions starting at the sm breakpoint.
+ * Combine border and transparent backgrounds for custom styling.
  */
-export const CardGroups: Story = {
+export const MixinUtilities: Story = {
   render: () => (
-    <div className="card-group">
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
-        </div>
-      </div>
-    </div>
+    <Card border="success" style={{ maxWidth: '18rem' }}>
+      <CardHeader className="bg-transparent border-success">Header</CardHeader>
+      <CardBody className="text-success">
+        <CardTitle>Success card title</CardTitle>
+        <CardText>
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </CardText>
+      </CardBody>
+      <CardFooter className="bg-transparent border-success">Footer</CardFooter>
+    </Card>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Use card groups to render cards as a single, attached element with equal width and height columns. Card groups use flexbox to create uniform dimensions and attached appearance.',
-      },
-    },
-  },
-};
-
-/**
- * When using card groups with footers, their content will automatically line up.
- */
-export const CardGroupsWithFooter: Story = {
-  render: () => (
-    <div className="card-group">
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div className="card-footer">
-          <small className="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div className="card-footer">
-          <small className="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div className="card-footer">
-          <small className="text-body-secondary">Last updated 3 mins ago</small>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'When using card groups with footers, their content will automatically line up due to the flexbox layout.',
-      },
-    },
-  },
-};
-
-/**
- * Use the Bootstrap grid system and its `.row-cols` classes to control how many grid columns (wrapped around your cards) you show per row. For example, here's `.row-cols-1` laying out the cards on one column, and `.row-cols-md-2` splitting four cards to equal width across multiple rows, from the medium breakpoint up.
- */
-export const GridCards: Story = {
-  render: () => (
-    <div className="row row-cols-1 row-cols-md-2 g-4">
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use the Bootstrap grid system with `.row-cols` classes to control how many columns you show per row. The `.g-4` class adds gutter spacing between cards.',
-      },
-    },
-  },
-};
-
-/**
- * Change it to `.row-cols-3` and you'll see the fourth card wrap.
- */
-export const GridCardsThreeColumns: Story = {
-  render: () => (
-    <div className="row row-cols-1 row-cols-md-3 g-4">
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Using `.row-cols-md-3` creates three columns per row from the medium breakpoint up, causing the fourth card to wrap to a new row.',
-      },
-    },
-  },
-};
-
-/**
- * When you need equal height, add `.h-100` to the cards. If you want equal heights by default, you can set `$card-height: 100%` in Sass.
- */
-export const GridCardsEqualHeight: Story = {
-  render: () => (
-    <div className="row row-cols-1 row-cols-md-3 g-4">
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a short card.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Add `.h-100` to cards to make them equal height within grid columns, regardless of content length.',
-      },
-    },
-  },
-};
-
-/**
- * Just like with card groups, card footers will automatically line up.
- */
-export const GridCardsWithFooter: Story = {
-  render: () => (
-    <div className="row row-cols-1 row-cols-md-3 g-4">
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-          <div className="card-footer">
-            <small className="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-          </div>
-          <div className="card-footer">
-            <small className="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-      <div className="col">
-        <div className="card h-100">
-          <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-          </div>
-          <div className="card-footer">
-            <small className="text-body-secondary">Last updated 3 mins ago</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'When using `.h-100` with grid cards, footers will automatically line up at the bottom regardless of content length.',
-      },
-    },
-  },
-};
-
-/**
- * You can also use CSS Grid to create flexible card layouts. This example uses `grid-template-columns` with `auto-fill` to create a responsive grid that adapts to the container width.
- */
-export const CSSGridLayout: Story = {
-  render: () => (
-    <div style={{ 
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-      gap: '1rem'
-    }}>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a short card.</p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show a variety of card heights.</p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Medium length card content.</p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">Short.</p>
-        </div>
-      </div>
-      <div className="card">
-        <img src="/src/assets/placeholders/card-placeholder.svg" className="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">This card has a reasonable amount of content to demonstrate how the CSS Grid layout handles different card heights and widths automatically.</p>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'CSS Grid provides a flexible alternative to Bootstrap\'s row/column system. The `auto-fill` keyword automatically creates as many columns as will fit in the container.',
+        story: 'You can change borders on the card header and footer as needed, and remove their background-color with `.bg-transparent`.',
       },
     },
   },
