@@ -121,6 +121,34 @@ export function Accordion({
     };
   }, [onHide, onHidden, onShow, onShown]);
 
+  // Dispose and reinitialize Bootstrap Collapse instances when alwaysOpen changes
+  useEffect(() => {
+    const element = accordionRef.current;
+    if (!element) return;
+
+    // Get Bootstrap's Collapse class from window
+    const Collapse = (window as unknown as { bootstrap?: { Collapse?: unknown } }).bootstrap?.Collapse as {
+      getInstance: (el: Element) => { dispose: () => void } | null;
+      getOrCreateInstance: (el: Element) => unknown;
+    } | undefined;
+    
+    if (!Collapse) return;
+
+    // Dispose existing instances to force reinitialization with new data-bs-parent
+    const collapseElements = element.querySelectorAll('.accordion-collapse');
+    collapseElements.forEach((collapseEl) => {
+      const instance = Collapse.getInstance(collapseEl);
+      if (instance) {
+        instance.dispose();
+      }
+    });
+
+    // Reinitialize collapse elements
+    collapseElements.forEach((collapseEl) => {
+      Collapse.getOrCreateInstance(collapseEl);
+    });
+  }, [alwaysOpen]);
+
   const classes = [
     'accordion',
     flush ? 'accordion-flush' : '',
@@ -310,6 +338,7 @@ export function AccordionCollapse({
     <div
       id={id}
       className={classes}
+      role="region"
       aria-labelledby={labelledBy}
       data-bs-parent={!alwaysOpen && parentId ? `#${parentId}` : undefined}
     >

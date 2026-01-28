@@ -161,10 +161,12 @@ export const Default: Story = {
   args: {
     items: sampleItems,
     defaultOpen: 0,
+    flush: false,
+    alwaysOpen: false,
   },
   render: (args) => (
     // Key forces remount when alwaysOpen changes so Bootstrap JS reinitializes
-    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+    <Accordion key={`accordion-${String(args.alwaysOpen)}-${String(args.flush)}`} {...args} />
   ),
   parameters: {
     docs: {
