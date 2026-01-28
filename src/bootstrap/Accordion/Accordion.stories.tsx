@@ -162,6 +162,10 @@ export const Default: Story = {
     items: sampleItems,
     defaultOpen: 0,
   },
+  render: (args) => (
+    // Key forces remount when alwaysOpen changes so Bootstrap JS reinitializes
+    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
@@ -177,6 +181,9 @@ export const Flush: Story = {
     flush: true,
     defaultOpen: 0,
   },
+  render: (args) => (
+    <Accordion key={`accordion-${args.alwaysOpen}-${args.flush}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
@@ -192,6 +199,9 @@ export const AlwaysOpen: Story = {
     alwaysOpen: true,
     defaultOpen: [0, 1],
   },
+  render: (args) => (
+    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
@@ -207,6 +217,9 @@ export const NoneOpen: Story = {
     items: sampleItems,
     defaultOpen: -1,
   },
+  render: (args) => (
+    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
@@ -223,6 +236,9 @@ export const MultipleDefaultOpen: Story = {
     alwaysOpen: true,
     defaultOpen: [0, 2],
   },
+  render: (args) => (
+    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
@@ -246,6 +262,9 @@ export const WithEvents: Story = {
     onShow: action('show'),
     onShown: action('shown'),
   },
+  render: (args) => (
+    <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
+  ),
   parameters: {
     docs: {
       description: {
