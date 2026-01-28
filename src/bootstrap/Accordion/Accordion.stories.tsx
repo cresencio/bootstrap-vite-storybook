@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from 'storybook/actions';
+import { expect, userEvent, within } from 'storybook/test';
 import {
   Accordion,
   AccordionItem,
@@ -168,10 +169,26 @@ export const Default: Story = {
     // Key forces remount when alwaysOpen changes so Bootstrap JS reinitializes
     <Accordion key={`accordion-${String(args.alwaysOpen)}-${String(args.flush)}`} {...args} />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // First item should be open by default
+    const firstButton = canvas.getByRole('button', { name: /Accordion Item #1/i });
+    await expect(firstButton).toHaveAttribute('aria-expanded', 'true');
+    
+    // Click second item to expand it
+    const secondButton = canvas.getByRole('button', { name: /Accordion Item #2/i });
+    await userEvent.click(secondButton);
+    
+    // Wait for animation, then verify second is expanded and first is collapsed (alwaysOpen: false)
+    await new Promise(resolve => setTimeout(resolve, 400));
+    await expect(secondButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(firstButton).toHaveAttribute('aria-expanded', 'false');
+  },
   parameters: {
     docs: {
       description: {
-        story: 'Basic accordion with first item open by default.',
+        story: 'Basic accordion with first item open by default. Clicking another item closes the current one.',
       },
     },
   },
@@ -204,6 +221,25 @@ export const AlwaysOpen: Story = {
   render: (args) => (
     <Accordion key={`accordion-${args.alwaysOpen}`} {...args} />
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // First two items should be open by default
+    const firstButton = canvas.getByRole('button', { name: /Accordion Item #1/i });
+    const secondButton = canvas.getByRole('button', { name: /Accordion Item #2/i });
+    await expect(firstButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(secondButton).toHaveAttribute('aria-expanded', 'true');
+    
+    // Click third item to expand it
+    const thirdButton = canvas.getByRole('button', { name: /Accordion Item #3/i });
+    await userEvent.click(thirdButton);
+    
+    // Wait for animation, then verify all three are expanded (alwaysOpen: true)
+    await new Promise(resolve => setTimeout(resolve, 400));
+    await expect(firstButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(secondButton).toHaveAttribute('aria-expanded', 'true');
+    await expect(thirdButton).toHaveAttribute('aria-expanded', 'true');
+  },
   parameters: {
     docs: {
       description: {
